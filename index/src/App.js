@@ -23,16 +23,19 @@ import Perfiles from "./pages/home/Perfiles/perfiles.js"
 import Foro from "./pages/home/Foro/foro.js"
 import Login from "./pages/Login/Login.js"
 import NoRute from "./components/NoRoute/noRoute.js"
-
 import {BrowserRouter} from "react-router-dom"
+import NavBar from "./components/nav/navbar.js"
+import Create from "./pages/create/create.js"
 
 function App() {
   return (
     <BrowserRouter>
       <div className="App">
+        <NavBar/>
         <Routes>
           <Route path="/" element={<Login/>} />
           <Route path="/register" element={<Register/>} />
+          <Route path="/create" element={<Create/>} />
           <Route path='/home/*' element={<IndexHome/>}>
             <Route path='proyectos' element={<Proyectos/>} />
             <Route path='perfiles' element={<Perfiles/>} />
