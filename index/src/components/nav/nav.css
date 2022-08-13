@@ -1,0 +1,8 @@
+.hidden{
+    display:none;
+    background-color: black;
+}
+.menu{
+    display:none;
+    grid-auto-columns: minmax(50px,4fr);
+}
