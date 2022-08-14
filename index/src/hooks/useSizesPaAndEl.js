@@ -10,7 +10,7 @@ export default function useSizesPaAndEl(refEl) {
     setWParent(refEl.current.parentElement.offsetWidth)
     setWRefEl(wParent)
 
-  }, [refEl, size])
+  }, [refEl, size, wParent])
 
   return [wParent, wRefEl, setWParent, setWRefEl]
 }

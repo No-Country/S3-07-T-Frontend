@@ -40,8 +40,8 @@ function App() {
             <Route path='*' element={<NoRute/>} />
           </Route> 
         </Routes>
-       </div>
-      </BrowserRouter>
+      </div>
+    </BrowserRouter>
   )
 }
 
