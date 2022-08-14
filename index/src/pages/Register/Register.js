@@ -9,6 +9,7 @@ import Slide from "../../components/Slide/Slide"
 import Slider from "../../components/Slider/Slider"
 import ProviderContextSlider from "../../context/contextSlider"
 import "./Register"
+import { useSelector } from "react-redux/es/hooks/useSelector"
 
 const TitleFormStyles = styled.h1`
   text-transform: capitalize;
@@ -121,11 +122,12 @@ const initialRegisterData = {
 
 export default function Register () {
   const [state, dispatch] = useReducer(registerReducer, initialRegisterData)
+  // eslint-disable-next-line no-unused-vars
+  const size = useSelector(state => state.rezise)
 
   const handleChangeState = (action) => {
     dispatch(action)
   }
-
 
   return (
     <section className="Register">
