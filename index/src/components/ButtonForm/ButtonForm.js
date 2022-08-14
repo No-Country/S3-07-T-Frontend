@@ -4,7 +4,7 @@ import { ContextSlider } from "../../context/contextSlider"
 import { setLoading } from "../../redux/actions"
 import { useDispatch, useSelector } from "react-redux/es/exports"
 
-const ButtonFormStyled = styled.button`
+export const ButtonFormStyled = styled.button`
   background-color: #9C7EEA;
   border: none;
   padding: .5em;
