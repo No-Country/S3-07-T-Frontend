@@ -13,8 +13,8 @@ import { useEffect } from "react"
 import { setNewSize } from "./redux/actions"
 import { useDispatch } from "react-redux"
 import NoRute from "./components/NoRoute/noRoute.js"
-import NavBar from "./components/nav/navbar.js"
 import Create from "./pages/create/create.js"
+import Header from "./components/Header/Header"
 
 function App() {
   const size = useWindowSize() //anchura y altura de la pantalla number[]
@@ -27,7 +27,7 @@ function App() {
   return (
     <BrowserRouter>
       <div className="App">
-        <NavBar/>
+        <Header/>
         <Routes>
           <Route path="/" element={<Login/>} />
           <Route path="/register" element={<Register/>} />
