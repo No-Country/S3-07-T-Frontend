@@ -12,6 +12,9 @@ package-lock.json
 # production
 /build
 
+#eslint
+.eslintrc.js
+
 # misc
 .DS_Store
 .env.local

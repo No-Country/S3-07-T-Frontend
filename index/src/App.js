@@ -1,18 +1,3 @@
-// import "./App.css"
-// import { Routes, Route } from "react-router-dom"
-// import Register from "./pages/Register/Register.js"
-
-// function App() {
-//   return (
-//     <div className="App">
-//       <Routes>
-//         <Route path="/register" element={<Register />} />
-//       </Routes>
-//     </div>
-//   )
-// }
-
-// export default App
 import "./App.css"
 import { Routes, Route } from "react-router-dom"
 import Register from "./pages/Register/Register.js"
@@ -22,12 +7,23 @@ import Equipos from "./pages/home/Equipos/equipos.js"
 import Perfiles from "./pages/home/Perfiles/perfiles.js"
 import Foro from "./pages/home/Foro/foro.js"
 import Login from "./pages/Login/Login.js"
-import NoRute from "./components/NoRoute/noRoute.js"
 import {BrowserRouter} from "react-router-dom"
+import useWindowSize from "./hooks/useWindowSize"
+import { useEffect } from "react"
+import { setNewSize } from "./redux/actions"
+import { useDispatch } from "react-redux"
+import NoRute from "./components/NoRoute/noRoute.js"
 import NavBar from "./components/nav/navbar.js"
 import Create from "./pages/create/create.js"
 
 function App() {
+  const size = useWindowSize() //anchura y altura de la pantalla number[]
+  const dispatch = useDispatch()
+
+  useEffect(() => {
+    dispatch(setNewSize(size)) // cada vez que cambien las dimensiones de la pantalla queremos tenerlo disponible para cualquier componente que lo necesite
+  }, [size])
+
   return (
     <BrowserRouter>
       <div className="App">
@@ -44,8 +40,8 @@ function App() {
             <Route path='*' element={<NoRute/>} />
           </Route> 
         </Routes>
-      </div>
-    </BrowserRouter>
+       </div>
+      </BrowserRouter>
   )
 }
 
