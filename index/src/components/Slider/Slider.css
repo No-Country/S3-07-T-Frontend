@@ -1,0 +1,16 @@
+.Slider {
+  height: 100%;
+  display: flex;
+  margin-left: 0%;
+  transition:  margin-left .2s ease;
+  animation: show 1s ease;
+}
+
+@keyframes show {
+  0% {
+    opacity: 0;
+  }
+  100% {
+    opacity: 1;
+  }
+}

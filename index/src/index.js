@@ -1,19 +1,19 @@
-import React from "react"
 import ReactDOM from "react-dom/client"
 import "./index.css"
 import App from "./App"
 import reportWebVitals from "./reportWebVitals"
 import {Provider} from "react-redux"
 import myStore from "../src/redux/store"
+import React from "react"
 
 
 const root = ReactDOM.createRoot(document.getElementById("root"))
 root.render(
-  <Provider store={myStore}>
-    <React.StrictMode>
+  <React.StrictMode>
+    <Provider store={myStore}>
       <App />
-    </React.StrictMode>
-  </Provider>
+    </Provider>
+  </React.StrictMode>
 )
 
 reportWebVitals()
