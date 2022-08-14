@@ -10,6 +10,8 @@ import Slider from "../../components/Slider/Slider"
 import ProviderContextSlider from "../../context/contextSlider"
 import "./Register"
 import { useSelector } from "react-redux/es/hooks/useSelector"
+import { ContainInputForm } from "../../components/ContainInputForm/ContainInputForm"
+import { typeButtons } from "../../Types/ButtonsForm"
 
 const TitleFormStyles = styled.h1`
   text-transform: capitalize;
@@ -45,32 +47,6 @@ function DescriptionForm ({title, descriptionShort, step}) {
     </div>
   )
 }
-
-const typeButtons = {
-  buttonNext: {
-    type: "next",
-    text: "siguiente"
-  },
-  buttonBack: {
-    type: "back",
-    text: "anterior"
-  },
-  buttonRegister: {
-    type: "register",
-    text: "registrarse"
-  }
-}
-
-const ContainInputForm = styled.div`
-  &::placeholder{
-    color: #2d2d2d;
-  }
-  display: flex;
-  flex-direction: column;
-  width: 100%;
-  gap: 1em;
-`
-
 
 function registerReducer(state, action) {
   switch (action.type) {
