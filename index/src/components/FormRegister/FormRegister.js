@@ -13,12 +13,14 @@ const FormRegisterStyled = styled.form`
   position: relative;
   display: flex;
   border: 1px solid transparent;
-  padding: 1em;
+  padding: 0 1em;
   flex-direction: column;
+  justify-content: center;
   gap: 1em;
   margin: 1em auto;
   background-color: white;
-  height: 100%;
+  height: 250px;
+  max-height: 100%;
   border-radius: 1em;
   width: 272px;
   max-width: 90%;

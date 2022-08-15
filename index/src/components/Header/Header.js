@@ -16,6 +16,7 @@ const LogoText = styled.h1`
 `
 
 const HeaderStyled = styled.div`
+flex-grow: 1;
   padding: 11px 1em;
   text-align: center;
 `

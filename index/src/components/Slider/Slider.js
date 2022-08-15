@@ -12,7 +12,7 @@ export default function Slider ({children}) {
 
   useEffect(() => {
     if(!sliderRef.current?.children.length) return
-    sliderRef.current.parentElement.style.overflow = "hidden"
+    sliderRef.current.parentElement.style.overflowX = "hidden"
   }, [])
 
   useLayoutEffect(() => {

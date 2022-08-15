@@ -9,16 +9,23 @@ import Foro from "./pages/home/Foro/foro.js"
 import Login from "./pages/Login/Login.js"
 import {BrowserRouter} from "react-router-dom"
 import useWindowSize from "./hooks/useWindowSize"
-import { useEffect } from "react"
+import { useEffect, useRef } from "react"
 import { setNewSize } from "./redux/actions"
 import { useDispatch } from "react-redux"
 import NoRute from "./components/NoRoute/noRoute.js"
 import Create from "./pages/create/create.js"
 import Header from "./components/Header/Header"
+import NavBarMobile from "./components/NavbarMobile/NavbarMobile"
 
 function App() {
   const size = useWindowSize() //anchura y altura de la pantalla number[]
   const dispatch = useDispatch()
+  const appRef = useRef()
+  useEffect(() => {
+    if(!appRef.current) return
+    appRef.current.children[1].style.overflowY = "auto"
+    appRef.current.children[1].style.flexGrow = "1"
+  }, [size])
 
   useEffect(() => {
     dispatch(setNewSize(size)) // cada vez que cambien las dimensiones de la pantalla queremos tenerlo disponible para cualquier componente que lo necesite
@@ -26,7 +33,7 @@ function App() {
 
   return (
     <BrowserRouter>
-      <div className="App">
+      <div className="App" ref={appRef}>
         <Header/>
         <Routes>
           <Route path="/" element={<Login/>} />
@@ -40,6 +47,7 @@ function App() {
             <Route path='*' element={<NoRute/>} />
           </Route> 
         </Routes>
+        <NavBarMobile/>
       </div>
     </BrowserRouter>
   )
