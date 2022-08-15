@@ -6,7 +6,7 @@ import { useReducer} from "react"
 import ActionSlider from "../../components/ActionSlider/ActionSlider"
 import { ButtonFormStyled } from "../../components/ButtonForm/ButtonForm"
 import axios from "axios"
-
+import "./Login.css"
 
 const reducerLogin = (state, action) => {
   switch (action.type) {
@@ -39,7 +39,7 @@ export default function Login () {
   }
 
   return (
-    <>
+    <div className="Login">
       <FormRegister>
         <ContainInputForm>
           <LabelForm name="email" text="correo electrónico"/>
@@ -56,8 +56,7 @@ export default function Login () {
           Iniciar Sesión
         </ButtonFormStyled>
       </ActionSlider>
-    </>
-
+    </div>
   )
 
 }
