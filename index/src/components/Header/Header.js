@@ -13,6 +13,7 @@ const LogoText = styled.h1`
   background: linear-gradient(to bottom, #9C7EEA 0%, #00C981 50%,#9C7EEA 80%);
   -webkit-text-fill-color: transparent;
   -webkit-background-clip: text;
+  margin: 0;
 `
 
 const HeaderStyled = styled.div`

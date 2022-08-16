@@ -1,18 +1,12 @@
 import "./App.css"
-import { Routes, Route } from "react-router-dom"
+import { Routes, Route, useLocation, useNavigate } from "react-router-dom"
 import Register from "./pages/Register/Register.js"
-import IndexHome from "./pages/home/indexHome.js"
-import Proyectos from "./pages/home/Proyectos/proyectos.js"
-import Equipos from "./pages/home/Equipos/equipos.js"
-import Perfiles from "./pages/home/Perfiles/perfiles.js"
-import Foro from "./pages/home/Foro/foro.js"
+import Search from "./pages/Search/Search.js"
 import Login from "./pages/Login/Login.js"
-import {BrowserRouter} from "react-router-dom"
 import useWindowSize from "./hooks/useWindowSize"
 import { useEffect, useRef } from "react"
 import { setNewSize } from "./redux/actions"
 import { useDispatch } from "react-redux"
-import NoRute from "./components/NoRoute/noRoute.js"
 import Create from "./pages/create/create.js"
 import Header from "./components/Header/Header"
 import NavBarMobile from "./components/NavbarMobile/NavbarMobile"
@@ -21,9 +15,14 @@ function App() {
   const size = useWindowSize() //anchura y altura de la pantalla number[]
   const dispatch = useDispatch()
   const appRef = useRef()
+  const navigate = useNavigate()
+  const location = useLocation()
+
   useEffect(() => {
     if(!appRef.current) return
-    appRef.current.children[1].style.overflowY = "auto"
+    if(appRef.current.children[1].innerHTML.elementType !== "nav") return //solucion error que me agarraba el navbar y le aplicaba overflow
+
+    appRef.current.children[1].style.overflowY = "auto" // esto es para que el navbar siempre quede abajo en la pantalla
     appRef.current.children[1].style.flexGrow = "1"
   }, [size])
 
@@ -31,25 +30,22 @@ function App() {
     dispatch(setNewSize(size)) // cada vez que cambien las dimensiones de la pantalla queremos tenerlo disponible para cualquier componente que lo necesite
   }, [size])
 
+  useEffect(()=>{
+    location.pathname === "/" && navigate("search/projects")
+  },[])
+
   return (
-    <BrowserRouter>
-      <div className="App" ref={appRef}>
-        <Header/>
-        <Routes>
-          <Route path="/" element={<Login/>} />
-          <Route path="/register" element={<Register/>} />
-          <Route path="/create" element={<Create/>} />
-          <Route path='/home/*' element={<IndexHome/>}>
-            <Route path='proyectos' element={<Proyectos/>} />
-            <Route path='perfiles' element={<Perfiles/>} />
-            <Route path='equipos' element={<Equipos/>} />
-            <Route path='foro' element={<Foro/>} />
-            <Route path='*' element={<NoRute/>} />
-          </Route> 
-        </Routes>
-        <NavBarMobile/>
-      </div>
-    </BrowserRouter>
+    <div className="App" ref={appRef}>
+      <Header/>
+      <Routes>
+        <Route path="/login" element={<Login/>} />
+        <Route path="/register" element={<Register/>} />
+        <Route path="/create" element={<Create/>} />
+        <Route path='/search/:articles' element={<Search/>}>
+        </Route> 
+      </Routes>
+      <NavBarMobile/>
+    </div>
   )
 }
 
