@@ -1,6 +1,23 @@
+@font-face {
+  font-family: Roboto;
+  src: 
+    url('./utils/fonts/Roboto/Roboto-Black.ttf'), 
+    url('./utils/fonts/Roboto/Roboto-BlackItalic.ttf'), 
+    url('./utils/fonts/Roboto/Roboto-Bold.ttf'), 
+    url('./utils/fonts/Roboto/Roboto-BoldItalic.ttf'), 
+    url('./utils/fonts/Roboto/Roboto-Italic.ttf'), 
+    url('./utils/fonts/Roboto/Roboto-Light.ttf'), 
+    url('./utils/fonts/Roboto/Roboto-LightItalic.ttf'), 
+    url('./utils/fonts/Roboto/Roboto-Medium.ttf'), 
+    url('./utils/fonts/Roboto/Roboto-MediumItalic.ttf'), 
+    url('./utils/fonts/Roboto/Roboto-Regular.ttf'), 
+    url('./utils/fonts/Roboto/Roboto-Thin.ttf'), 
+    url('./utils/fonts/Roboto/Roboto-ThinItalic.ttf')
+}
+
 body {
   margin: 0;
-  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
+  font-family: 'Roboto', -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Oxygen',
     'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue',
     sans-serif;
   -webkit-font-smoothing: antialiased;
@@ -14,4 +31,5 @@ code {
 
 *{
   box-sizing: border-box;
+  font-family: 'Roboto';
 }

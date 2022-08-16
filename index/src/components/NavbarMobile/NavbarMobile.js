@@ -17,7 +17,7 @@ export default function NavBarMobile () {
   )
 }
 
-const NavBarMobileStyled = styled.div`
+const NavBarMobileStyled = styled.nav`
   display: flex;
   justify-content: space-between;
   align-items: center;
@@ -28,8 +28,7 @@ const NavBarMobileStyled = styled.div`
   bottom: 0;
   height: 43px;
   max-height: 43px;
-  /* border-top: 1px solid black; */
-`
+  `
 
 const ButtonAddStyled = styled.button`
   background-color: #00C981;
