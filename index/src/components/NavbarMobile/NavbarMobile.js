@@ -1,7 +1,6 @@
 import { Link } from "react-router-dom"
 import styled from "styled-components"
-// eslint-disable-next-line quotes
-import { Icon } from '@iconify/react'
+import { Icon } from "@iconify/react"
 
 export default function NavBarMobile () {
   return (
