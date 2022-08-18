@@ -1,4 +1,5 @@
 import styled from "styled-components"
+import { parseArticle } from "../../utils/adapters"
 import Card from "../Card/Card"
 
 const articlesMock = [
@@ -63,11 +64,21 @@ const ListCardsStyled = styled.ul`
   margin: 0;
 `
 
-export default function ListCards ({articles = articlesMock}) {
+export default function ListCards ({articles = articlesMock, type = ""}) {
+
+  if(!articles.length) {
+    articles = articlesMock
+  }
+
   return (
     <ListCardsStyled>
       {articles.length !== 0 && articles
-        .map((article ,index) => <li key={index}><Card article={article}/></li>)}
+        .map((article ,index) => (
+          <li key={index}>
+            <Card article={parseArticle(article, type)}/>
+          </li>
+        ))
+      }
     </ListCardsStyled>
   )
 }
