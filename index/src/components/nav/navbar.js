@@ -16,8 +16,8 @@ export default function NavBar(){
     align-items: center;
     `
   const MyImg=styled.img`
-    width: 16%;
-    height: 54px;
+    width: 10%;
+    height: 30px;
     object-fit: cover;
     margin:1px;
     `
