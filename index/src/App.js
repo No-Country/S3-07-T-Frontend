@@ -7,9 +7,10 @@ import useWindowSize from "./hooks/useWindowSize"
 import { useEffect, useRef } from "react"
 import { setNewSize } from "./redux/actions"
 import { useDispatch } from "react-redux"
-import Create from "./pages/Create/Create.js"
+import Create from "./pages/create/Create.js"
 import Header from "./components/Header/Header"
 import NavBarMobile from "./components/NavbarMobile/NavbarMobile"
+import ProfileDetail from "./components/ProfileDetail/ProfileDetail"
 
 function App() {
   const size = useWindowSize() //anchura y altura de la pantalla number[]
@@ -43,6 +44,7 @@ function App() {
         <Route path="/create" element={<Create/>} />
         <Route path='/search/:articles' element={<Search/>}>
         </Route> 
+        <Route path="search/projects/:idProject" element={<ProfileDetail/>}/>
       </Routes>
       <NavBarMobile/>
     </div>
