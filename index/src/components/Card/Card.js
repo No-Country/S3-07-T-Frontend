@@ -1,12 +1,5 @@
 import styled from "styled-components"
-
-const articleType = {
-  title: "",
-  image: "",
-  description: "",
-  team: "",
-  technologies: []
-}
+import { articleType } from "../../Types/articles_type"
 
 const ImgCard = styled.img`
   width: 90px;
@@ -66,15 +59,19 @@ const ContentInfoCard = styled.div`
 `
 
 export default function Card ({article = articleType}) {
+  article = {
+    ...articleType,
+    ...article
+  }
   return (
     <CardStyled>
       <ImgCard src={article.image} alt={article.title} />
       <ContentInfoCard>
         <TitleCard>{article.title}</TitleCard>
-        <InfoCard>{article.team}</InfoCard>
+        <InfoCard>{article.tags}</InfoCard>
         <TechnologiesCard>
-          {article.technologies.length !== 0 && article.technologies
-            .map((technology) => <li key={technology}> <InfoCard>{technology},</InfoCard> </li>)}
+          {article.tags2Array.length !== 0 && article.tags2Array
+            .map((tag2) => <li key={tag2}> <InfoCard>{tag2}</InfoCard> </li>)}
         </TechnologiesCard>
         <DescriptionCard>{article.description.substring(0, 63)}{article.description.length > 63 && "..."}</DescriptionCard>
       </ContentInfoCard>
