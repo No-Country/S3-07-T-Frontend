@@ -6,3 +6,7 @@
     display:none;
     grid-auto-columns: minmax(50px,4fr);
 }
+.navbar__link{
+  text-decoration:none;
+  color: white;
+}

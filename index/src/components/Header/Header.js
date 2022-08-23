@@ -1,11 +1,29 @@
 import styled from "styled-components"
+import useWindowSize from "../../hooks/useWindowSize"
+import NavBar from "../nav/navbar"
+// import NavBarMobile from "../NavbarMobile/NavbarMobile"
 
 export default function Header (){
-  return (
-    <HeaderStyled>
-      <LogoText>Nc Community</LogoText>
-    </HeaderStyled>
-  )
+  const size= useWindowSize()
+  if (size[0]<1024) {
+    return <LogoText>Nc Community</LogoText>
+  }else{
+    return (
+    
+      <>
+        {
+        /*
+        <HeaderStyled>
+          <NavBarMobile></NavBarMobile>
+          <LogoText>Nc Community</LogoText>
+        </HeaderStyled>
+        */
+        }
+        <NavBar/>
+      </>
+    )
+
+  }
 }
 
 const LogoText = styled.h1`
@@ -14,10 +32,15 @@ const LogoText = styled.h1`
   -webkit-text-fill-color: transparent;
   -webkit-background-clip: text;
   margin: 0;
+  display: flex;
+  text-align: center;
+  justify-content:center;
+  align-items: center;
 `
-
+/*
 const HeaderStyled = styled.div`
 flex-grow: 1;
   padding: 11px 1em;
   text-align: center;
 `
+*/
