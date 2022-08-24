@@ -1,122 +1,118 @@
-import styled from "styled-components"
+import axios from "axios"
+import { useReducer, useState } from "react"
+import { SERVER_URLS } from "../../configs/URLS"
+import { categoriesSearchsTypes } from "../../Types/articles_type"
+import ModalAdd from "../ModalAdd/ModalAdd"
+import { AddedCard, ContainerAddeds } from "../ModalAdd/stylesModalAdd"
+import { reducerCreateProject } from "./reducerCreateProject"
+import { ButtonAdd, ButtonAddOrDropProject, ContainerAddOrDrop, ContainerInputAdd, ContentAdd, DragAndDropStyled, DragAndDropTitle, FormCreateStyled, InputTitle, InputURL, Space, TextAdd } from "./stylesFormCreateProject"
 
-const FormCreateStyled = styled.form`
-  width: 100%;
-  height: 100%;
-  display: flex;
-  flex-direction: column;
-  gap: 15px;
-`
+const typeProject = {
+  title: "",
+  description: "",
+  image: "",
+  author: "6302f80e05c3ebcc65a24889",
+  video: "",
+  teamLeader: "",
+  team: [],
+  categories: [],
+}
 
-const DragAndDropStyled = styled.div`
-  border: 2px dashed #9C7EEA;
-  border-radius: 20px;
-  width: 100%;
-  height: 100%;
-  display: flex;
-  justify-content: center;
-  min-height: 200px;
-  align-items: center;
-`
-
-const DragAndDropTitle = styled.span`
-  font-size: 14px;
-  color: #6840D0;
-`
-
-const InputURL = styled.input`
-  border: 1px solid transparent;
-  background: linear-gradient(to right, #D9D9D9 0%, #E4E4E4 50%, #F1F1F1 100%);
-  border-radius: 6px;
-  padding: 6px;
-  &::placeholder{
-    color: #6840D0;
-  }
-` 
-const InputTitle = styled.input`
-  color: #2D2D2D;
-  font-size: 20px;
-`
-
-const ContainerInputAdd = styled.div`
-  display: flex;
-  flex-direction: column;
-  gap: 6px;
-` 
-
-const ButtonAdd = styled.button`
-  background-color: #9C7EEA;
-  border: 1px solid transparent;
-  box-shadow: 1px 1px 1px 1px gray;
-  color: white;
-  width: 24px;
-  height: 24px;
-  border-radius: 50%;
-`
-
-const TextAdd = styled.h2`
-  margin: 0;
-  font-weight: medium;
-  font-size: 16px;
-  color: #2D2D2D;
-`
-
-const ContentAdd = styled.textarea`
-  resize: none;
-  border: 1px solid gray;
-  min-height: 100px;
-  &::placeholder{
-    color: #767474
-  }
-`
-
-const ContainerAddOrDrop = styled.div`
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  padding: 30px 0;
-  padding-bottom: 50px;
-  gap: 30px;
-`
-
-const ButtonAddOrDropProject = styled.button`
-  border: 1px solid transparent;
-  color: white;
-  background-color: ${(props)=> props.isAdd ?  "#047B50" : "#FB395C"};
-  box-shadow: 1px 1px 1px 1px gray;
-  min-width: 80px;
-  min-height: 60px;
-  font-size: 12px;
-  border-radius: 6px;
-  
-`
-const Space = styled.div`
-  min-height: 0px;
-`
 export default function FormCreateProject () {
+  const [state, dispatch] = useReducer(reducerCreateProject, typeProject)
+  const [isOpenModal, setIsOpenModel] = useState(false)
+  const [isOpendModalTech, setisOpendModalTech] = useState()
+
+  const handleChangeValues = (e) => {
+    dispatch({type: e.target.name, payload: e.target.value})
+  }
+
+  const handleClickAddThing = (e, type = "participants") => {
+    e.preventDefault()
+    type === "participants" ? setIsOpenModel(!isOpenModal) : setisOpendModalTech(!isOpendModalTech)
+  }
+
+  const handleClickAddProject = async(e) => {
+    e.preventDefault()
+    const dataProject = {
+      ...state
+    }
+    dataProject.team = state.team[0]._id
+    dataProject.categories = (() => {
+      const categoriesIDs = []
+      for (let category of state.categories){
+        categoriesIDs.push(category._id)
+      }
+      return categoriesIDs
+    })()
+    dataProject.author = "6302f80e05c3ebcc65a24889"
+    console.log(dataProject)
+    const res = await axios.post(SERVER_URLS.ADDPROJECT, dataProject)
+    console.log(res)
+  }
+ 
   return (
     <FormCreateStyled>
       <DragAndDropStyled>
         <DragAndDropTitle>¡Arrastra tu video acá!</DragAndDropTitle>
       </DragAndDropStyled>
-      <InputURL type="text" placeholder="O escribe su URL aca"/>
-      <InputTitle type="text" value="Título" />
+      <InputURL type="text" placeholder="O escribe su URL aca" name="video" value={state.video} onChange={handleChangeValues}/>
+      <InputTitle type="text" placeholder="Título" name="title" value={state.title} onChange={handleChangeValues}/>
       <ContainerInputAdd>
-        <TextAdd>Participantes</TextAdd>
-        <ButtonAdd>+</ButtonAdd>
+        <TextAdd>Equipo</TextAdd>
+        <ContainerAddeds>
+          {
+            state.team.length ? 
+              <AddedCard>
+                {`${state.team[0].cohortType.substring(0,1)}${state.team[0].cohortNumber} - g${state.team[0].group}`}
+              </AddedCard> 
+              : ""
+          }
+          
+        </ContainerAddeds>
+        <ButtonAdd onClick={handleClickAddThing}>+</ButtonAdd>
+        <ModalAdd 
+          type={categoriesSearchsTypes.team}
+          title="Equipo" 
+          active={[isOpenModal, setIsOpenModel]} 
+          initialAddeds={[state.team, (addeds)=>dispatch({type:"team", payload:addeds})]} 
+          limitAdd={1}
+        />
       </ContainerInputAdd>
       <ContainerInputAdd>
-        <TextAdd>Tecnologías</TextAdd>
-        <ButtonAdd>+</ButtonAdd>
+        <TextAdd>Categorías</TextAdd>
+        <ContainerAddeds>
+          {
+            state.categories.length ?
+              state.categories.map((category, index)=>{
+                return(
+                  <AddedCard key={category._id || index}>
+                    {`${category.name}`}
+                  </AddedCard>
+                ) 
+              }) 
+
+              : ""
+          }
+        </ContainerAddeds>
+        <ButtonAdd onClick={(e)=>handleClickAddThing(e, "tech")}>+</ButtonAdd>
+        <ModalAdd
+          type={categoriesSearchsTypes.category}
+          title="Categorias" 
+          active={[isOpendModalTech, setisOpendModalTech]}
+          initialAddeds={[state.categories, (addeds)=>dispatch({type:"categories", payload:addeds})]} 
+        />
       </ContainerInputAdd>
 
       <ContainerInputAdd>
         <TextAdd>Descripción</TextAdd>
-        <ContentAdd />
+        <ContentAdd name="description" value={state.description} onChange={handleChangeValues}/>
       </ContainerInputAdd>
 
+      <InputURL type="text" placeholder="URL de la imagen de presentación" name="image" value={state.image} onChange={handleChangeValues}/>
+
       <ContainerAddOrDrop>
-        <ButtonAddOrDropProject isAdd >Subir</ButtonAddOrDropProject>
+        <ButtonAddOrDropProject isAdd onClick={handleClickAddProject}>Subir</ButtonAddOrDropProject>
         <ButtonAddOrDropProject>Descartar</ButtonAddOrDropProject>
       </ContainerAddOrDrop>
 
