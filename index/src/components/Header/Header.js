@@ -1,7 +1,7 @@
 import styled from "styled-components"
 import useWindowSize from "../../hooks/useWindowSize"
 import NavBar from "../nav/navbar"
-// import NavBarMobile from "../NavbarMobile/NavbarMobile"
+
 
 export default function Header (){
   const size= useWindowSize()
@@ -9,20 +9,10 @@ export default function Header (){
     return <LogoText>Nc Community</LogoText>
   }else{
     return (
-    
       <>
-        {
-        /*
-        <HeaderStyled>
-          <NavBarMobile></NavBarMobile>
-          <LogoText>Nc Community</LogoText>
-        </HeaderStyled>
-        */
-        }
         <NavBar/>
       </>
     )
-
   }
 }
 
@@ -37,10 +27,3 @@ const LogoText = styled.h1`
   justify-content:center;
   align-items: center;
 `
-/*
-const HeaderStyled = styled.div`
-flex-grow: 1;
-  padding: 11px 1em;
-  text-align: center;
-`
-*/

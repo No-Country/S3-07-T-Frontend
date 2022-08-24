@@ -1,19 +1,34 @@
 import { Link } from "react-router-dom"
 import styled from "styled-components"
 import { Icon } from "@iconify/react"
+import useWindowSize from "../../hooks/useWindowSize"
 
-export default function NavBarMobile () {
-  return (
-    <NavBarMobileStyled>
-      <LinkStyled to="/home" >
-        <Icon icon="akar-icons:home" color="#777777" width={"25px"} height={"25px"}/>
-      </LinkStyled>
-      <ButtonAddStyled>+</ButtonAddStyled>
-      <LinkStyled to="/profile">
-        <Icon icon="bi:person" color="#777777" width={"31px"} height={"31px"}/>
-      </LinkStyled>
-    </NavBarMobileStyled>
-  )
+export default function NavBarMobile() {
+  const size = useWindowSize()
+  if (size[0] < 1024) {
+    return (
+      <NavBarMobileStyled>
+        <LinkStyled to="/search/projects">
+          <Icon icon="akar-icons:home" color="#777777" width={"25px"} height={"25px"} />
+        </LinkStyled>
+        <ButtonAddStyled>+</ButtonAddStyled>
+        <LinkStyled to="/profile">
+          <Icon icon="bi:person" color="#777777" width={"31px"} height={"31px"} />
+        </LinkStyled>
+      </NavBarMobileStyled>
+    )
+  } else {
+    return (
+      <NavBarMobileStyled>
+        <LinkStyled to="/search/projects">
+          <Icon icon="akar-icons:home" color="#777777" width={"25px"} height={"25px"} />
+        </LinkStyled>
+        <LinkStyled to="/profile">
+          <Icon icon="bi:person" color="#777777" width={"31px"} height={"31px"} />
+        </LinkStyled>
+      </NavBarMobileStyled>
+    )
+  }
 }
 
 const NavBarMobileStyled = styled.nav`
@@ -27,10 +42,10 @@ const NavBarMobileStyled = styled.nav`
   bottom: 0;
   height: 43px;
   max-height: 43px;
-  `
+`
 
 const ButtonAddStyled = styled.button`
-  background-color: #00C981;
+  background-color: #00c981;
   color: white;
   border: 1px solid transparent;
   border-radius: 50%;
@@ -43,7 +58,7 @@ const ButtonAddStyled = styled.button`
 
 const LinkStyled = styled(Link)`
   text-decoration: none;
-  &:visited{
+  &:visited {
     color: inherit;
   }
 `
