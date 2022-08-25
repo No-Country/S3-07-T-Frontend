@@ -76,7 +76,7 @@ export default function ListCards ({articles = articlesMock, type = ""}) {
       {articles.length !== 0 && articles
         .map((article ,index) => (
           <li key={index}>
-            <Link to={"/" + type + "/" + article._id}>
+            <Link to={"/search/" + type + "/" + article._id}>
               <Card article={parseArticle(article, type)}/>
             </Link>
           </li>
