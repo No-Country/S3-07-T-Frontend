@@ -11,6 +11,7 @@ import Create from "./pages/Create/Create"
 import Header from "./components/Header/Header"
 import NavBarMobile from "./components/NavbarMobile/NavbarMobile"
 import ProfileDetail from "./components/ProfileDetail/ProfileDetail"
+import MyProfile from "./components/MyProfile/MyProfile"
 
 function App() {
   const size = useWindowSize() //anchura y altura de la pantalla number[]
@@ -29,7 +30,7 @@ function App() {
 
   useEffect(() => {
     dispatch(setNewSize(size)) // cada vez que cambien las dimensiones de la pantalla queremos tenerlo disponible para cualquier componente que lo necesite
-  }, [size])
+  }, [dispatch, size])
 
   useEffect(()=>{
     location.pathname === "/" && navigate("search/projects")
@@ -46,9 +47,9 @@ function App() {
         <Route path="/login" element={<Login/>} />
         <Route path="/register" element={<Register/>} />
         <Route path="/create" element={<Create/>} />
-        <Route path='/search/:articles' element={<Search/>}>
-        </Route> 
-        <Route path="search/projects/:idProject" element={<ProfileDetail/>}/>
+        <Route path="/my-profile" element={<MyProfile/>} />
+        <Route path='/search/:articles' element={<Search/>}/>
+        <Route path="search/profiles/:idProfile" element={<ProfileDetail/>}/>
       </Routes>
       <NavBarMobile />
     </div>
