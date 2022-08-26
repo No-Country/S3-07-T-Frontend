@@ -7,7 +7,7 @@ const Image=styled.img`
     height: auto;
     object-fit: cover;
     `
-export default function Main  () {
+export default function Banner  () {
   const size= useWindowSize()
   if (size[0]>1024) {
     return (
