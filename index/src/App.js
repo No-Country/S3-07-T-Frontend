@@ -11,6 +11,7 @@ import Create from "./pages/Create/Create"
 import Header from "./components/Header/Header"
 import NavBarMobile from "./components/NavbarMobile/NavbarMobile"
 import ProfileDetail from "./components/ProfileDetail/ProfileDetail"
+import Banner from "./components/Main/Banner"
 import MyProfile from "./components/MyProfile/MyProfile"
 
 function App() {
@@ -21,9 +22,8 @@ function App() {
   const location = useLocation()
 
   useEffect(() => {
-    if(!appRef.current) return
-    if(appRef.current.children[1].innerHTML.elementType !== "nav") return //solucion error que me agarraba el navbar y le aplicaba overflow
-
+    if (!appRef.current) return
+    if (appRef.current.children[1].innerHTML.elementType !== "nav") return //solucion error que me agarraba el navbar y le aplicaba overflow
     appRef.current.children[1].style.overflowY = "auto" // esto es para que el navbar siempre quede abajo en la pantalla
     appRef.current.children[1].style.flexGrow = "1"
   }, [size])
@@ -32,13 +32,14 @@ function App() {
     dispatch(setNewSize(size)) // cada vez que cambien las dimensiones de la pantalla queremos tenerlo disponible para cualquier componente que lo necesite
   }, [dispatch, size])
 
-  useEffect(()=>{
+  useEffect(() => {
     location.pathname === "/" && navigate("search/projects")
-  },[])
+  }, [])
 
   return (
     <div className="App" ref={appRef}>
-      <Header /> 
+      <Header />
+      <Banner />
       <Routes>
         <Route path="/login" element={<Login />} />
         <Route path="/register" element={<Register />} />
