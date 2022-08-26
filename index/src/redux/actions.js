@@ -1,12 +1,13 @@
 import axios from "axios"
-import {  GET_TYPES ,URL_BASE , ORDER_ALPHA, ORDER_SCORE, FILTER_BY_TYPE, GET_RECIPES } from "./constantes"
+import {  GET_TYPES  , ORDER_ALPHA, ORDER_SCORE, FILTER_BY_TYPE, GET_PROYECTS } from "./constantes"
+import { SERVER_URLS} from "../configs/URLS"
 
-
+const ruta_proyectos= SERVER_URLS.ALLPROJECTS
 
 export const loadTypes = () => {
   return async (dispatch) => {
     try {
-      const api = await axios.get(`${URL_BASE}/types`)
+      const api = await axios.get(`${SERVER_URLS.URL_BASE}/types`)
       const res= api.data
       console.log("desde actions:")
       return dispatch({
@@ -21,11 +22,27 @@ export const loadTypes = () => {
 export const getAllproyects = () => {
   return async (dispatch) => {
     try {
-      const api = await axios.get(`${URL_BASE}/proyects`)
+      const api = await axios.get(`${SERVER_URLS.URL_BASE}/proyects`)
       const res= api.data
       console.log("desde actions:")
       return dispatch({
-        type: GET_RECIPES,
+        type: GET_PROYECTS,
+        payload: res,
+      })
+    }
+    catch (error) { console.log(error) }
+  }
+}
+
+
+export const getProyectById = (id) => {
+  return async (dispatch) => {
+    try {
+      const api = await axios.get(`${ruta_proyectos}/${id}`)
+      const res= api.data
+      console.log("desde actions:")
+      return dispatch({
+        type: "GET_PROYECT_DETAIL",
         payload: res,
       })
     }

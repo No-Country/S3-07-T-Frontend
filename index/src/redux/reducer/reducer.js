@@ -1,6 +1,7 @@
 const initialState={
   allProyects:[],
   filterProyects:[],
+  detail:{},
   types:[],
   esperandoFiltro:false,
   loading: false,
@@ -24,6 +25,11 @@ function rootReducer(state = initialState, action = {type: "", payload: "" | {}}
     return {
       ...state,
       loading: action.payload
+    }
+  case "GET_PROYECT_DETAIL":
+    return {
+      ...state,
+      detail: action.payload
     }
   default :
     return state

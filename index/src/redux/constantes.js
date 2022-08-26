@@ -1,4 +1,4 @@
-export const GET_RECIPES="GET_RECIPES"
+export const GET_PROYECTS="GET_PROYECTS"
 export const GET_TYPES="GET_TYPES"
 export const GET_PLAT="GET_PLAT"
 export const GET_GAME_BY_ID="GET__BY_ID"
