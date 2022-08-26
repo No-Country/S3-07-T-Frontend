@@ -4,26 +4,18 @@ import NavBar from "../nav/navbar"
 // import NavBarMobile from "../NavbarMobile/NavbarMobile"
 
 export default function Header (){
-  const size= useWindowSize()
-  if (size[0]<1024) {
-    return <LogoText>Nc Community</LogoText>
-  }else{
-    return (
-    
-      <>
-        {
-        /*
-        <HeaderStyled>
-          <NavBarMobile></NavBarMobile>
-          <LogoText>Nc Community</LogoText>
-        </HeaderStyled>
-        */
-        }
-        <NavBar/>
-      </>
-    )
+  const [widthScreen]= useWindowSize()
 
-  }
+
+  return (
+    widthScreen < 1024 
+      ? 
+      <HeaderStyled>
+        <LogoText>Nc Community</LogoText>
+      </HeaderStyled>
+      : 
+      <NavBar/>
+  )
 }
 
 const LogoText = styled.h1`
@@ -37,10 +29,9 @@ const LogoText = styled.h1`
   justify-content:center;
   align-items: center;
 `
-/*
+
 const HeaderStyled = styled.div`
 flex-grow: 1;
   padding: 11px 1em;
   text-align: center;
 `
-*/

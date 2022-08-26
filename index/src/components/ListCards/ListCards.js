@@ -1,3 +1,4 @@
+import { Link } from "react-router-dom"
 import styled from "styled-components"
 import { parseArticle } from "../../utils/adapters"
 import Card from "../Card/Card"
@@ -75,7 +76,9 @@ export default function ListCards ({articles = articlesMock, type = ""}) {
       {articles.length !== 0 && articles
         .map((article ,index) => (
           <li key={index}>
-            <Card article={parseArticle(article, type)}/>
+            <Link to={"/search/" + type + "/" + article._id}>
+              <Card article={parseArticle(article, type)}/>
+            </Link>
           </li>
         ))
       }
