@@ -11,7 +11,7 @@ import Create from "./pages/Create/Create"
 import Header from "./components/Header/Header"
 import NavBarMobile from "./components/NavbarMobile/NavbarMobile"
 import ProfileDetail from "./components/ProfileDetail/ProfileDetail"
-import Main from "./components/Main/Main"
+import Banner from "./components/Main/Banner"
 import MyProfile from "./components/MyProfile/MyProfile"
 
 function App() {
@@ -39,7 +39,7 @@ function App() {
   return (
     <div className="App" ref={appRef}>
       <Header />
-      <Main />
+      <Banner />
       <Routes>
         <Route path="/login" element={<Login />} />
         <Route path="/register" element={<Register />} />
