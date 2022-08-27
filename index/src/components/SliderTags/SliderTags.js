@@ -69,7 +69,7 @@ export default function SliderTags({tags}) {
           tags.map((tag, index)=>{
             return(
               <SwiperSlide key={tag._id ||index} styles={{heigth:"100%", width:"100%"}}>
-                <CardTag title={`${tag.name}`} img={tag.image}/>
+                <CardTag title={`${tag.title}`} img={tag.image}/>
               </SwiperSlide>
             )
           })
