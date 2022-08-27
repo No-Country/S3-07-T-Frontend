@@ -8,5 +8,18 @@
 }
 .navbar__link{
   text-decoration:none;
-  color: white;
+  color: #551a8b;
+  text-shadow: 1px 1px #62f3d5;
+}
+.current__link{
+  text-decoration:none;
+  background-image: linear-gradient(180deg,#00c981 , #fff);
+  border-top-left-radius: 1em;
+  border-top-right-radius: 1em;
+  margin-bottom: 0px;
+  color: #44b2ee ;
+  text-shadow: 1px 1px 1px #551a8b;
+  text-decoration: underline;
+  display: block;
+  width:26%;
 }
