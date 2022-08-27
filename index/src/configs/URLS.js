@@ -14,4 +14,5 @@ export const SERVER_URLS = {
   ADDPROJECT: `${BASE_URL}/project`,
   ADDCATEGORY: `${BASE_URL}/category`,
   GETUSERID: `${BASE_URL}/searchxId`,
+  EDITUSER: `${BASE_URL}/editAvatar`,
 }
