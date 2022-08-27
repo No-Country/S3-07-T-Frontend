@@ -1,34 +1,22 @@
-import { Link } from "react-router-dom"
+import { Link, useNavigate } from "react-router-dom"
 import styled from "styled-components"
 import { Icon } from "@iconify/react"
 import useWindowSize from "../../hooks/useWindowSize"
 
 export default function NavBarMobile() {
+  const navigate = useNavigate()
   const size = useWindowSize()
-  if (size[0] < 1024) {
-    return (
-      <NavBarMobileStyled>
-        <LinkStyled to="/search/projects">
-          <Icon icon="akar-icons:home" color="#777777" width={"25px"} height={"25px"} />
-        </LinkStyled>
-        <ButtonAddStyled>+</ButtonAddStyled>
-        <LinkStyled to="/profile">
-          <Icon icon="bi:person" color="#777777" width={"31px"} height={"31px"} />
-        </LinkStyled>
-      </NavBarMobileStyled>
-    )
-  } else {
-    return (
-      <NavBarMobileStyled>
-        <LinkStyled to="/search/projects">
-          <Icon icon="akar-icons:home" color="#777777" width={"25px"} height={"25px"} />
-        </LinkStyled>
-        <LinkStyled to="/profile">
-          <Icon icon="bi:person" color="#777777" width={"31px"} height={"31px"} />
-        </LinkStyled>
-      </NavBarMobileStyled>
-    )
-  }
+  return (
+    <NavBarMobileStyled>
+      <LinkStyled to="/search/projects">
+        <Icon icon="akar-icons:home" color="#777777" width={"25px"} height={"25px"} />
+      </LinkStyled>
+      {size[0] < 1024 && <ButtonAddStyled onClick={()=>navigate("/create")}>+</ButtonAddStyled>}
+      <LinkStyled to="/my-profile">
+        <Icon icon="bi:person" color="#777777" width={"31px"} height={"31px"} />
+      </LinkStyled>
+    </NavBarMobileStyled>
+  )
 }
 
 const NavBarMobileStyled = styled.nav`

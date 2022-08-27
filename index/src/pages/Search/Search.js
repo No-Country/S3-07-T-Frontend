@@ -45,43 +45,48 @@ const getAll = {
   foro: SERVER_URLS.ALLPUBLICATIONS,
 }
 
+const getListCategory = async(category) => {
+  try {
+    const urlOfCategory = getAll[TYPES_ARTICLES[category]]
+    if (!urlOfCategory) throw new Error("No existe la url de esa categoria")
+    const categoryList = await axios.get(urlOfCategory)
+    return categoryList.data.docs
+  } catch (error) {
+    console.log(error)
+    return []
+  }
+}
+
 
 export default function Search () {
-  const {articles:articlesType} = useParams()
+  const {articles:categoryParam} = useParams()
   const [allArticles, setAllArticles] = useState([])
 
   useEffect(() => {
-    axios.get(getAll[TYPES_ARTICLES[articlesType]])
-      .then(res => {
-        const {data} = res
-
-        console.log(data)
-        setAllArticles(data.docs)
-      })
-      .catch(error => console.log(error))
-  }, [articlesType])
+    getListCategory(categoryParam).then(setAllArticles).catch(setAllArticles)
+  }, [categoryParam])
 
   return (
     <div style={{overflowY: "auto", height: "100%"}}>
       <MenuSearch>
         <NavLinkStyled to='/search/projects'>
           Proyectos
-          <UnderLine active={articlesType === TYPES_ARTICLES.projects}/>
+          <UnderLine active={categoryParam === TYPES_ARTICLES.projects}/>
         </NavLinkStyled> 
         <NavLinkStyled to='/search/profiles'>
           Perfiles
-          <UnderLine active={articlesType === TYPES_ARTICLES.profiles}/>
+          <UnderLine active={categoryParam === TYPES_ARTICLES.profiles}/>
         </NavLinkStyled>
         <NavLinkStyled to='/search/teams'>
           Equipos
-          <UnderLine active={articlesType === TYPES_ARTICLES.teams}/>
+          <UnderLine active={categoryParam === TYPES_ARTICLES.teams}/>
         </NavLinkStyled> 
         <NavLinkStyled to='/search/foro'>
           Foro
-          <UnderLine active={articlesType === TYPES_ARTICLES.foro}/>
+          <UnderLine active={categoryParam === TYPES_ARTICLES.foro}/>
         </NavLinkStyled>
       </MenuSearch>
-      <ListCards articles={allArticles} type={articlesType}/>
+      <ListCards articles={allArticles} type={categoryParam}/>
     </div>
   )
 }

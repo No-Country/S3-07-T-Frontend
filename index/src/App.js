@@ -14,6 +14,13 @@ import NavBarMobile from "./components/NavbarMobile/NavbarMobile"
 import ProfileDetail from "./components/ProfileDetail/ProfileDetail"
 import Banner from "./components/Main/Banner"
 import MyProfile from "./components/MyProfile/MyProfile"
+import styled from "styled-components"
+
+const Main = styled.section`
+overflow-y: auto;
+flex-grow: 1;
+/* height: 100%; */
+`
 
 function App() {
   const size = useWindowSize() //anchura y altura de la pantalla number[]
@@ -21,13 +28,6 @@ function App() {
   const appRef = useRef()
   const navigate = useNavigate()
   const location = useLocation()
-
-  useEffect(() => {
-    if (!appRef.current) return
-    if (appRef.current.children[1].innerHTML.elementType !== "nav") return //solucion error que me agarraba el navbar y le aplicaba overflow
-    appRef.current.children[1].style.overflowY = "auto" // esto es para que el navbar siempre quede abajo en la pantalla
-    appRef.current.children[1].style.flexGrow = "1"
-  }, [size])
 
   useEffect(() => {
     dispatch(setNewSize(size)) // cada vez que cambien las dimensiones de la pantalla queremos tenerlo disponible para cualquier componente que lo necesite
@@ -38,22 +38,24 @@ function App() {
   }, [])
 
   return (
-    <div className="App" ref={appRef}>
+    <div className="App" ref={appRef} style={{height: size[1], overflowY:"hidden"}}>
       <Header />
       <Banner />
-      <Routes>
-        <Route path="/login" element={<Login />} />
-        <Route path="/register" element={<Register />} />
-        <Route path="/create" element={<Create />} />
-        <Route path="/search/:articles" element={<Search />}></Route>
-        <Route path="/login" element={<Login/>} />
-        <Route path="/register" element={<Register/>} />
-        <Route path="search/projects/:id" element={<ProyectDetail/>} />
-        <Route path="/create" element={<Create/>} />
-        <Route path="/my-profile" element={<MyProfile/>} />
-        <Route path='/search/:articles' element={<Search/>}/>
-        <Route path="search/profiles/:idProfile" element={<ProfileDetail/>}/>
-      </Routes>
+      <Main>
+        <Routes>
+          <Route path="/login" element={<Login />} />
+          <Route path="/register" element={<Register />} />
+          <Route path="/create" element={<Create />} />
+          <Route path="/search/:articles" element={<Search />}></Route>
+          <Route path="/login" element={<Login/>} />
+          <Route path="/register" element={<Register/>} />
+          <Route path="search/projects/:id" element={<ProyectDetail/>} />
+          <Route path="/create" element={<Create/>} />
+          <Route path="/my-profile" element={<MyProfile/>} />
+          <Route path='/search/:articles' element={<Search/>}/>
+          <Route path="search/profiles/:idProfile" element={<ProfileDetail/>}/>
+        </Routes>
+      </Main>
       <NavBarMobile />
     </div>
   )
