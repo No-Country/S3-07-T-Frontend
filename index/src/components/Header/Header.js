@@ -31,7 +31,8 @@ const LogoText = styled.h1`
 `
 
 const HeaderStyled = styled.div`
-flex-grow: 1;
+  flex-grow: 1;
   padding: 11px 1em;
   text-align: center;
+  max-height: 50px;
 `
