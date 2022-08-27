@@ -42,19 +42,29 @@ export default function ProyectDetail(){
     margin:0px;
     `
   const Detalles=styled.div`
+    height: 90vh;
     display: grid;
     grid-template-columns: repeat(auto-fit,minmax(360px,2fr));
-    color: #6c2de3;
     text-align: center;
     background: linear-gradient(to left, #00c981, transparent 50%, #fff 75%, #ddd 75%);
     `
   const Div2=styled.div`
   opacity:${mas?"1":"0"};
+  display:flex;
   `
   const Div1=styled.div`
     margin-top: 4%;
     z-index: 2;
     `
+  const Areatxt=styled.div`
+  justify-content: center;
+  text-align: left;
+  font-family: font-family:'Verdana', sans-serif;
+  font-size: small;
+  color:#fff;
+  background:#090909;
+  padding: 2% 20% 2% 25%;
+  `
   while(!proyect){
     return(
       <NoRute/>
@@ -64,12 +74,14 @@ export default function ProyectDetail(){
     <Detalles>
       <Div1>
         <MyImg src={proyect.image}  alt={"otra imagen"}  /> <br/>
-        <p style={{color:"#44b3e9"}}>{proyect.title}</p>
-        <MyButton onClick={handleClick} >{textBtn}</MyButton>  
+        <p style={{textAlign: "left", paddingLeft:"25%"}} >{proyect.title}</p>
+        <Areatxt>{proyect.description}</Areatxt>
+        <MyButton onClick={handleClick} >{textBtn}</MyButton>
       </Div1>
       <Div2 >
-        <p>{proyect.description}</p>
+        
         <div style={{position:"absolute", whidt:"800px"}}>
+          <MyButton style={{borderRadius:"50%", opacity:"0.6", marginLeft:"80%", marginBottom:"5%"}} onClick={handleClick}>X</MyButton> <br/>
           <video
             autoPlay
             controls
@@ -81,7 +93,8 @@ export default function ProyectDetail(){
               width: "90%",
               height: "50vh",
               objectFit: "cover",
-            
+              opacity:"0.9",
+              border: "3px #44b3e9 solid",
               transform:"traslate(40%, 30%)",
             }}
           >
@@ -89,7 +102,7 @@ export default function ProyectDetail(){
             <source src={proyect.video} type="video/mp4" />
           </video>
         </div>
-        <MyButton onClick={handleClick}>X</MyButton> <br/>
+        
       </Div2> 
     </Detalles>
   )
