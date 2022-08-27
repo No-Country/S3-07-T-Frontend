@@ -67,6 +67,7 @@ export default function ProyectDetail(){
       <Div2 >
         <p>{proyect.description}</p>
         <video
+          autoPlay
           controls
           loop
           muted

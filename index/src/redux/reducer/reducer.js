@@ -1,12 +1,24 @@
+const USERTYPE = {
+  _id: "",
+  firstName: "",
+  lastName: "",
+  email: "",
+  rolDes: "",
+  avatar: "",
+  description: "",
+  projects: [],
+  teams: []
+}
+
 const initialState={
   allProyects:[],
-  filterProyects:[],
   detail:{},
-  types:[],
-  esperandoFiltro:false,
   loading: false,
   error:false,
   size: [0,0],
+  user: {
+    ...USERTYPE
+  }
 }
 
 function rootReducer(state = initialState, action = {type: "", payload: "" | {}}){
@@ -16,10 +28,10 @@ function rootReducer(state = initialState, action = {type: "", payload: "" | {}}
       ...state,
       size : action.payload
     }
-  case "newDataInRegister":
+  case "user":
     return {
       ...state,
-      size: action.payload
+      user: action.payload
     }
   case "loading":
     return {

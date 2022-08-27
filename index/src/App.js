@@ -7,10 +7,13 @@ import useWindowSize from "./hooks/useWindowSize"
 import { useEffect, useRef } from "react"
 import { setNewSize } from "./redux/actions"
 import { useDispatch } from "react-redux"
-import Create from "./pages/create/create.js"
+import ProyectDetail from "./pages/detail/proyectDetail"
+import Create from "./pages/Create/Create"
 import Header from "./components/Header/Header"
 import NavBarMobile from "./components/NavbarMobile/NavbarMobile"
-import ProyectDetail from "./pages/detail/proyectDetail"
+import ProfileDetail from "./components/ProfileDetail/ProfileDetail"
+import Banner from "./components/Main/Banner"
+import MyProfile from "./components/MyProfile/MyProfile"
 
 function App() {
   const size = useWindowSize() //anchura y altura de la pantalla number[]
@@ -20,33 +23,38 @@ function App() {
   const location = useLocation()
 
   useEffect(() => {
-    if(!appRef.current) return
-    if(appRef.current.children[1].innerHTML.elementType !== "nav") return //solucion error que me agarraba el navbar y le aplicaba overflow
-
+    if (!appRef.current) return
+    if (appRef.current.children[1].innerHTML.elementType !== "nav") return //solucion error que me agarraba el navbar y le aplicaba overflow
     appRef.current.children[1].style.overflowY = "auto" // esto es para que el navbar siempre quede abajo en la pantalla
     appRef.current.children[1].style.flexGrow = "1"
   }, [size])
 
   useEffect(() => {
     dispatch(setNewSize(size)) // cada vez que cambien las dimensiones de la pantalla queremos tenerlo disponible para cualquier componente que lo necesite
-  }, [size])
+  }, [dispatch, size])
 
-  useEffect(()=>{
+  useEffect(() => {
     location.pathname === "/" && navigate("search/projects")
-  },[])
+  }, [])
 
   return (
     <div className="App" ref={appRef}>
-      <Header/>
+      <Header />
+      <Banner />
       <Routes>
+        <Route path="/login" element={<Login />} />
+        <Route path="/register" element={<Register />} />
+        <Route path="/create" element={<Create />} />
+        <Route path="/search/:articles" element={<Search />}></Route>
         <Route path="/login" element={<Login/>} />
         <Route path="/register" element={<Register/>} />
-        <Route path="/detail/proyect/:id" element={<ProyectDetail/>} />
+        <Route path="search/projects/:id" element={<ProyectDetail/>} />
         <Route path="/create" element={<Create/>} />
-        <Route path='/search/:articles' element={<Search/>}>
-        </Route> 
+        <Route path="/my-profile" element={<MyProfile/>} />
+        <Route path='/search/:articles' element={<Search/>}/>
+        <Route path="search/profiles/:idProfile" element={<ProfileDetail/>}/>
       </Routes>
-      <NavBarMobile/>
+      <NavBarMobile />
     </div>
   )
 }

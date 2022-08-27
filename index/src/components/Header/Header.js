@@ -1,10 +1,20 @@
 import styled from "styled-components"
+import useWindowSize from "../../hooks/useWindowSize"
+import NavBar from "../nav/navbar"
+// import NavBarMobile from "../NavbarMobile/NavbarMobile"
 
 export default function Header (){
+  const [widthScreen]= useWindowSize()
+
+
   return (
-    <HeaderStyled>
-      <LogoText>Nc Community</LogoText>
-    </HeaderStyled>
+    widthScreen < 1024 
+      ? 
+      <HeaderStyled>
+        <LogoText>Nc Community</LogoText>
+      </HeaderStyled>
+      : 
+      <NavBar/>
   )
 }
 
@@ -14,6 +24,10 @@ const LogoText = styled.h1`
   -webkit-text-fill-color: transparent;
   -webkit-background-clip: text;
   margin: 0;
+  display: flex;
+  text-align: center;
+  justify-content:center;
+  align-items: center;
 `
 
 const HeaderStyled = styled.div`
