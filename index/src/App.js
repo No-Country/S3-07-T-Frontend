@@ -7,6 +7,7 @@ import useWindowSize from "./hooks/useWindowSize"
 import { useEffect, useRef } from "react"
 import { setNewSize } from "./redux/actions"
 import { useDispatch } from "react-redux"
+import ProyectDetail from "./pages/detail/proyectDetail"
 import Create from "./pages/Create/Create"
 import Header from "./components/Header/Header"
 import NavBarMobile from "./components/NavbarMobile/NavbarMobile"
@@ -47,6 +48,7 @@ function App() {
         <Route path="/search/:articles" element={<Search />}></Route>
         <Route path="/login" element={<Login/>} />
         <Route path="/register" element={<Register/>} />
+        <Route path="search/projects/:id" element={<ProyectDetail/>} />
         <Route path="/create" element={<Create/>} />
         <Route path="/my-profile" element={<MyProfile/>} />
         <Route path='/search/:articles' element={<Search/>}/>
