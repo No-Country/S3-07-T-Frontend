@@ -5,6 +5,11 @@ import { useParams } from "react-router-dom"
 import { useSelector } from "react-redux"
 import NoRute from "../../components/NoRoute/noRoute"
 import styled from "styled-components"
+import { SectionTags } from "../../components/MyProfile/MyProfileStyles"
+import SliderTags from "../../components/SliderTags/SliderTags"
+import { adapterToTagInSlider } from "../../components/MyProfile/MyProfile"
+import { getListTech } from "../../services/techsServices"
+import { categoriesSearchsTypes } from "../../Types/articles_type"
 //import CardAct from "./home/CardAct"
 
 export default function ProyectDetail(){
@@ -13,10 +18,15 @@ export default function ProyectDetail(){
   const dispatch= useDispatch()
   const {id}= useParams()
   const proyect= useSelector(store=>store.detail)
+  const [techs, setTechs] = useState([])
+  
+  
   useEffect(()=>{
     dispatch(getProyectById(id))
   }, [dispatch,id])
-
+  useEffect(()=>{
+    getListTech().then(setTechs) 
+  }, [])
 
   function handleClick(){
     console.log("llegó a handleClick")
@@ -77,6 +87,10 @@ export default function ProyectDetail(){
         <p style={{textAlign: "left", paddingLeft:"25%"}} >{proyect.title}</p>
         <Areatxt>{proyect.description}</Areatxt>
         <MyButton onClick={handleClick} >{textBtn}</MyButton>
+        <SectionTags>
+          <span>Tecnologías</span>
+          <SliderTags tags={adapterToTagInSlider(techs, categoriesSearchsTypes.technology)}/>
+        </SectionTags>
       </Div1>
       <Div2 >
         
