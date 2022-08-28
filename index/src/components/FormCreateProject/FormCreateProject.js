@@ -46,9 +46,7 @@ export default function FormCreateProject () {
       return categoriesIDs
     })()
     dataProject.author = "6302f80e05c3ebcc65a24889"
-    console.log(dataProject)
-    const res = await axios.post(SERVER_URLS.ADDPROJECT, dataProject)
-    console.log(res)
+    await axios.post(SERVER_URLS.ADDPROJECT, dataProject)
   }
  
   return (
