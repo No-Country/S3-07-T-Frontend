@@ -50,7 +50,7 @@ function App() {
           <Route path="/login" element={<Login/>} />
           <Route path="/register" element={<Register/>} />
           <Route path="search/projects/:id" element={<ProyectDetail/>} />
-          <Route path="/create" element={<Create/>} />
+          <Route path="/create/:categoryName" element={<Create/>} />
           <Route path="/my-profile" element={<MyProfile/>} />
           <Route path='/search/:articles' element={<Search/>}/>
           <Route path="search/profiles/:idProfile" element={<ProfileDetail/>}/>
