@@ -3,6 +3,7 @@ import { useEffect, useState } from "react"
 import { NavLink, useParams } from "react-router-dom"
 import styled from "styled-components"
 import ListCards from "../../components/ListCards/ListCards"
+import SearchForm from "../../components/SearchForm/SearchForm"
 import { SERVER_URLS } from "../../configs/URLS"
 
 const MenuSearch = styled.nav`
@@ -45,11 +46,18 @@ const getAll = {
   foro: SERVER_URLS.ALLPUBLICATIONS,
 }
 
-const getListCategory = async(category) => {
+const querySearch =  {
+  projects: "title",
+  teams: "team",
+  profiles: "name"
+}
+
+const getListCategory = async (category, search, page) => {
   try {
     const urlOfCategory = getAll[TYPES_ARTICLES[category]]
     if (!urlOfCategory) throw new Error("No existe la url de esa categoria")
-    const categoryList = await axios.get(urlOfCategory)
+    console.log(urlOfCategory + `?page=${page}` + `&limit=${10}` + `&${querySearch[category]}=${search}`)
+    const categoryList = await axios.get(urlOfCategory + `?page=${page}` + `&limit=${10}` + `&${querySearch[category]}=${search}`)
     return categoryList.data.docs
   } catch (error) {
     console.log(error)
@@ -57,13 +65,17 @@ const getListCategory = async(category) => {
   }
 }
 
-
 export default function Search () {
   const {articles:categoryParam} = useParams()
   const [allArticles, setAllArticles] = useState([])
+  const [search, setSearch] = useState("")
 
   useEffect(() => {
-    getListCategory(categoryParam).then(setAllArticles).catch(setAllArticles)
+    getListCategory(categoryParam, search, 0).then(setAllArticles).catch(setAllArticles)
+  }, [categoryParam, search])
+
+  useEffect(() => {
+    setSearch("")
   }, [categoryParam])
 
   return (
@@ -86,6 +98,7 @@ export default function Search () {
           <UnderLine active={categoryParam === TYPES_ARTICLES.foro}/>
         </NavLinkStyled>
       </MenuSearch>
+      <SearchForm changerSearch={setSearch}/>
       <ListCards articles={allArticles} type={categoryParam}/>
     </div>
   )
