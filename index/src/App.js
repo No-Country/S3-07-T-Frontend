@@ -45,15 +45,11 @@ function App() {
         <Routes>
           <Route path="/login" element={<Login />} />
           <Route path="/register" element={<Register />} />
-          <Route path="/create" element={<Create />} />
-          <Route path="/search/:articles" element={<Search />}></Route>
-          <Route path="/login" element={<Login/>} />
-          <Route path="/register" element={<Register/>} />
-          <Route path="search/projects/:id" element={<ProyectDetail/>} />
-          <Route path="/create" element={<Create/>} />
           <Route path="/my-profile" element={<MyProfile/>} />
-          <Route path='/search/:articles' element={<Search/>}/>
-          <Route path="search/profiles/:idProfile" element={<ProfileDetail/>}/>
+          <Route path="/create" element={<Create/>} />
+          <Route path="/search/:articles" element={<Search />} />
+          <Route path="search/projects/:id" element={<ProyectDetail/>} />
+          <Route path="search/profiles/:idProfile" element={<ProfileDetail/>} />
         </Routes>
       </Main>
       <NavBarMobile />
