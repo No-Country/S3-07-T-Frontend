@@ -19,7 +19,6 @@ import styled from "styled-components"
 const Main = styled.section`
 overflow-y: auto;
 flex-grow: 1;
-/* height: 100%; */
 `
 
 function App() {

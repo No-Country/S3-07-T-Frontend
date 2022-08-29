@@ -10,7 +10,7 @@ import { Avatar, EditAvatar, MyProfileStyled, Name, Position, SectionTags } from
 import { getListTech } from "../../services/techsServices"
 import { Icon } from "@iconify/react"
 
-const adapterToTagInSlider = (tags, type) => {
+export const adapterToTagInSlider = (tags, type) => {
   const category = categoriesSearchsTypes[type]
   if (!category) return []
 

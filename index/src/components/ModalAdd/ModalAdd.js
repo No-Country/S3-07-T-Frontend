@@ -4,23 +4,30 @@ import { createPortal } from "react-dom"
 import { SERVER_URLS } from "../../configs/URLS"
 import Modal from "../Modal/Modal"
 import { AddedCard, ButtonAddedCard, ContainerAddeds, ContainerSearch, ContainerSearchAndButton, FormSearchAdd, ModalAddStyled, Result, ResultsList } from "./stylesModalAdd"
-
+import {getListTech} from "../../services/techsServices"
 const adapterResult = {
   profile: (profile) => `${profile.firstName} ${profile.lastName}`,
   team: (team) => `${team.cohortType.substring(0,1)}${team.cohortNumber} - g${team.group}`,
-  category: (category) => `${category.name}`
+  category: (category) => `${category.name}`,
+  technology: (technology) => `${technology.name}`
 }
 
 const search = {
   profile: searchParticipants,
   team: searchTeams,
   category: searchCategories,
+  technology: searchTechnologies,
 }
 
 async function searchParticipants (search = "") {
   const resUsers = await axios.get(`${SERVER_URLS.ALLUSERS}/?name=${search}`)
 
   return resUsers.data.docs
+}
+
+async function searchTechnologies (search = "") {
+  console.log(search)
+  return await getListTech()
 }
 
 async function searchTeams (search) {
