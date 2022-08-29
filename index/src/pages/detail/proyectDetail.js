@@ -10,6 +10,8 @@ import SliderTags from "../../components/SliderTags/SliderTags"
 import { adapterToTagInSlider } from "../../components/MyProfile/MyProfile"
 import { getListTech } from "../../services/techsServices"
 import { categoriesSearchsTypes } from "../../Types/articles_type"
+import { getUserByID } from "../../services/usersServices"
+//import { getListTeam } from "../../services/teamsServices"
 //import CardAct from "./home/CardAct"
 
 export default function ProyectDetail(){
@@ -18,14 +20,17 @@ export default function ProyectDetail(){
   const dispatch= useDispatch()
   const {id}= useParams()
   const proyect= useSelector(store=>store.detail)
+  const user= useSelector(store=>store.user)
   const [techs, setTechs] = useState([])
+  const [persons, setPersons] = useState([])
   
   
   useEffect(()=>{
     dispatch(getProyectById(id))
   }, [dispatch,id])
   useEffect(()=>{
-    getListTech().then(setTechs) 
+    getListTech().then(setTechs)
+    getUserByID().then(setPersons) 
   }, [])
 
   function handleClick(){
@@ -90,6 +95,11 @@ export default function ProyectDetail(){
         <SectionTags>
           <span>Tecnologías</span>
           <SliderTags tags={adapterToTagInSlider(techs, categoriesSearchsTypes.technology)}/>
+        </SectionTags>
+        <SectionTags>
+          <span>Participantes</span>
+          {console.log(persons)}
+          <SliderTags tags={adapterToTagInSlider(persons?[persons,persons]:[user,user], categoriesSearchsTypes.profile)}/>
         </SectionTags>
       </Div1>
       <Div2 >

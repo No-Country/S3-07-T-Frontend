@@ -7,8 +7,6 @@ import {images} from "../../utils/images/images.js"
 export default function NavBar(){
   const location=useLocation()
   
-  console.log(location.pathname)
-  
 
 
   const Menu= styled.nav`
