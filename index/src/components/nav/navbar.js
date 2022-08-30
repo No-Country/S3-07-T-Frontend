@@ -10,9 +10,9 @@ export default function NavBar(){
 
 
   const Menu= styled.nav`
-  background: linear-gradient(to left, #00c981, transparent 50%, #fff 75%, #45b4ea 75%);
+  background: #f5f5f5
     color: #45b4ea;
-    border-bottom:3px #45b4ea solid;
+    border-bottom:3px #fff solid;
     display:flex;
     flex-direction: wrap;
     padding: 0;
@@ -25,11 +25,12 @@ export default function NavBar(){
     object-fit: cover;
     margin:0px;
     max-width: 130px;
+    filter: drop-shadow(5px 5px 5px rgba(0,0,0,0.3));
     `
   return (
     <Menu className={location.pathname === "/" ? "hidden" : "menu"}>
       
-      <MyImg src={images.menubg} />
+      <MyImg src={images.ncLogo} />
       <Link to="/search/projects"className={(location.pathname ==="/search/projects") ? "current__link" : "navbar__link"} style={{ padding: "2vh" }}>
         Home
       </Link>
