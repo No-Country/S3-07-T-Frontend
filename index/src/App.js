@@ -1,5 +1,5 @@
 import "./App.css"
-import { Routes, Route, useLocation, useNavigate } from "react-router-dom"
+import { Routes, Route, Navigate } from "react-router-dom"
 import Register from "./pages/Register/Register.js"
 import Search from "./pages/Search/Search.js"
 import Login from "./pages/Login/Login.js"
@@ -25,16 +25,10 @@ function App() {
   const size = useWindowSize() //anchura y altura de la pantalla number[]
   const dispatch = useDispatch()
   const appRef = useRef()
-  const navigate = useNavigate()
-  const location = useLocation()
 
   useEffect(() => {
     dispatch(setNewSize(size)) // cada vez que cambien las dimensiones de la pantalla queremos tenerlo disponible para cualquier componente que lo necesite
   }, [dispatch, size])
-
-  useEffect(() => {
-    location.pathname === "/" && navigate("search/projects")
-  }, [])
 
   return (
     <div className="App" ref={appRef} style={{height: size[1], overflowY:"hidden"}}>
@@ -42,10 +36,11 @@ function App() {
       <Banner />
       <Main>
         <Routes>
+          <Route path="/" element={<Navigate to={"/search/projects"}/>}/>
           <Route path="/login" element={<Login />} />
           <Route path="/register" element={<Register />} />
           <Route path="/my-profile" element={<MyProfile/>} />
-          <Route path="/create" element={<Create/>} />
+          <Route path="/create/:categoryName" element={<Create/>} />
           <Route path="/search/:articles" element={<Search />} />
           <Route path="search/projects/:id" element={<ProyectDetail/>} />
           <Route path="search/profiles/:idProfile" element={<ProfileDetail/>} />

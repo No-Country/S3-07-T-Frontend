@@ -5,6 +5,7 @@ import { SERVER_URLS } from "../../configs/URLS"
 import Modal from "../Modal/Modal"
 import { AddedCard, ButtonAddedCard, ContainerAddeds, ContainerSearch, ContainerSearchAndButton, FormSearchAdd, ModalAddStyled, Result, ResultsList } from "./stylesModalAdd"
 import {getListTech} from "../../services/techsServices"
+
 const adapterResult = {
   profile: (profile) => `${profile.firstName} ${profile.lastName}`,
   team: (team) => `${team.cohortType.substring(0,1)}${team.cohortNumber} - g${team.group}`,
@@ -33,7 +34,7 @@ async function searchTechnologies (search = "") {
 async function searchTeams (search) {
   console.log(search)
   const resUsers = await axios.get(`${SERVER_URLS.ALLTEAMS}`)
-  return resUsers.data
+  return resUsers.data.docs
 }
 
 async function searchCategories (search) {

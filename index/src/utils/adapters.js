@@ -16,7 +16,7 @@ function projectAdapter (project) {
     article.title = project.title || "No title"
     article.image = project.image || images.ncLogo,
     article.description = project.description || "No decription",
-    article.tags = project.team && `${project.team.cohortType} ${project.team.cohortNumber} ${project.team.group}` || "No tags",
+    article.tags = project.team && `${project.team.cohortType} ${project.team.cohortNumber} - grupo ${project.team.group}` || "No tags",
     article.tags2Array = project.technologies || ["", ""]
   
     return article
@@ -52,7 +52,7 @@ function profileAdapter (profile) {
     article.title = profile.firstName ? `${profile.firstName} ${profile.lastName}` : "Sin nombre"
     article.image = profile.avatar || images.ncLogo,
     article.description = profile.description || "Sin descripción",
-    article.tags = profile.projects?.length && profile.projects[0]  || "No tags",
+    article.tags = profile.rolDes  || "No tags",
     article.tags2Array = profile.technologies || ["", ""]
   
     return article 
@@ -65,9 +65,8 @@ function profileAdapter (profile) {
 function teamsAdapter (team) {
   try {
     const article = {...articleType}
-    console.log("id team", team)
     article._id = team._id || ""
-    article.title = `${team.cohortType} ${team.cohortNumber}-${team.group}`
+    article.title = `${team.cohortType} ${team.cohortNumber} - grupo ${team.group}`
     article.image = images.ncLogo,
     article.description = "Grupo de no country",
     article.tags = "No tags",

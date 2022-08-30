@@ -14,6 +14,7 @@ const CardStyled = styled.div`
   background-color: white;
   padding: 15px 10px;
   gap: 10px;
+  max-width: 100%;
   &::after{
     position: absolute;
     top: -2px;
@@ -32,16 +33,18 @@ const TitleCard = styled.div`
   font-weight: bold;
 `
 
-const InfoCard = styled.span`
+const Tags1 = styled.span`
   font-size: 12px;
   color: #767474;
 `
 
-const TechnologiesCard = styled.ul`
+const Tags2 = styled.ul`
   list-style: none;
   display: flex;
   gap: 6px;
   padding: 0;
+  max-width: 100%;
+  flex-wrap: wrap;
 `
 
 const DescriptionCard = styled.p`
@@ -68,11 +71,11 @@ export default function Card ({article = articleType}) {
       <ImgCard src={article.image} alt={article.title} />
       <ContentInfoCard>
         <TitleCard>{article.title}</TitleCard>
-        <InfoCard>{article.tags}</InfoCard>
-        <TechnologiesCard>
+        <Tags1>{article.tags}</Tags1>
+        <Tags2>
           {article.tags2Array.length !== 0 && article.tags2Array
-            .map((tag2) => <li key={tag2}> <InfoCard>{tag2}</InfoCard> </li>)}
-        </TechnologiesCard>
+            .map((tag2) => <li key={tag2}> <Tags1>{tag2.name}</Tags1> </li>)}
+        </Tags2>
         <DescriptionCard>{article.description.substring(0, 63)}{article.description.length > 63 && "..."}</DescriptionCard>
       </ContentInfoCard>
     </CardStyled>
