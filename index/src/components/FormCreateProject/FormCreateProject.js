@@ -1,7 +1,9 @@
 import axios from "axios"
 import { useReducer, useState } from "react"
 import { SERVER_URLS } from "../../configs/URLS"
+import { JSONUserStorage } from "../../services/localStorage"
 import { categoriesSearchsTypes } from "../../Types/articles_type"
+import { filterIDsSync } from "../../utils/filterIDsSync"
 import ModalAdd from "../ModalAdd/ModalAdd"
 import { AddedCard, ContainerAddeds } from "../ModalAdd/stylesModalAdd"
 import { reducerCreateProject } from "./reducerCreateProject"
@@ -11,25 +13,33 @@ const typeProject = {
   title: "",
   description: "",
   image: "",
-  author: "6302f80e05c3ebcc65a24889",
+  author: "",
   video: "",
   teamLeader: "",
   team: [],
   categories: [],
+  technologies: [],
 }
 
 export default function FormCreateProject () {
   const [state, dispatch] = useReducer(reducerCreateProject, typeProject)
-  const [isOpenModal, setIsOpenModel] = useState(false)
-  const [isOpendModalTech, setisOpendModalTech] = useState()
+  const [isOpenModalTeam, setIsOpenModalTeam] = useState(false)
+  const [isOpendModalTag, setisOpendModalTag] = useState(false)
+  const [isOpenModalTech, setisOpendModalTech] = useState(false)
+
 
   const handleChangeValues = (e) => {
     dispatch({type: e.target.name, payload: e.target.value})
   }
 
-  const handleClickAddThing = (e, type = "participants") => {
+  const handleClickAddThing = (e, type) => {
     e.preventDefault()
-    type === "participants" ? setIsOpenModel(!isOpenModal) : setisOpendModalTech(!isOpendModalTech)
+    const openModal = {
+      tech: ()=>setisOpendModalTech(!isOpenModalTech),
+      team: ()=>setIsOpenModalTeam(!isOpenModalTeam),
+      tag: ()=>setisOpendModalTag(!isOpendModalTag), 
+    }
+    openModal[type]()
   }
 
   const handleClickAddProject = async(e) => {
@@ -37,15 +47,16 @@ export default function FormCreateProject () {
     const dataProject = {
       ...state
     }
-    dataProject.team = state.team[0]._id
-    dataProject.categories = (() => {
-      const categoriesIDs = []
-      for (let category of state.categories){
-        categoriesIDs.push(category._id)
-      }
-      return categoriesIDs
-    })()
-    dataProject.author = "6302f80e05c3ebcc65a24889"
+    dataProject.team = state.team.length ? state.team[0]._id : undefined
+    dataProject.categories = state.categories.length 
+      ? filterIDsSync(state.categories)
+      : undefined
+
+    dataProject.technologies = state.technologies.length 
+      ? filterIDsSync(state.technologies)
+      : undefined
+      
+    dataProject.author = JSONUserStorage._id
     await axios.post(SERVER_URLS.ADDPROJECT, dataProject)
   }
  
@@ -68,11 +79,11 @@ export default function FormCreateProject () {
           }
           
         </ContainerAddeds>
-        <ButtonAdd onClick={handleClickAddThing}>+</ButtonAdd>
+        <ButtonAdd onClick={(e)=>handleClickAddThing(e, "team")}>+</ButtonAdd>
         <ModalAdd 
           type={categoriesSearchsTypes.team}
           title="Equipo" 
-          active={[isOpenModal, setIsOpenModel]} 
+          active={[isOpenModalTeam, setIsOpenModalTeam]} 
           initialAddeds={[state.team, (addeds)=>dispatch({type:"team", payload:addeds})]} 
           limitAdd={1}
         />
@@ -93,12 +104,37 @@ export default function FormCreateProject () {
               : ""
           }
         </ContainerAddeds>
-        <ButtonAdd onClick={(e)=>handleClickAddThing(e, "tech")}>+</ButtonAdd>
+        <ButtonAdd onClick={(e)=>handleClickAddThing(e, "tag")}>+</ButtonAdd>
         <ModalAdd
           type={categoriesSearchsTypes.category}
           title="Categorias" 
-          active={[isOpendModalTech, setisOpendModalTech]}
+          active={[isOpendModalTag, setisOpendModalTag]}
           initialAddeds={[state.categories, (addeds)=>dispatch({type:"categories", payload:addeds})]} 
+        />
+      </ContainerInputAdd>
+
+      <ContainerInputAdd>
+        <TextAdd>Tecnologías</TextAdd>
+        <ContainerAddeds>
+          {
+            state.technologies.length ?
+              state.technologies.map((category, index)=>{
+                return(
+                  <AddedCard key={category._id || index}>
+                    {`${category.name}`}
+                  </AddedCard>
+                ) 
+              }) 
+
+              : ""
+          }
+        </ContainerAddeds>
+        <ButtonAdd onClick={(e)=>handleClickAddThing(e, "tech")}>+</ButtonAdd>
+        <ModalAdd
+          type={categoriesSearchsTypes.technology}
+          title="Tecnologías" 
+          active={[isOpenModalTech, setisOpendModalTech]}
+          initialAddeds={[state.technologies, (addeds)=>dispatch({type:"technologies", payload:addeds})]} 
         />
       </ContainerInputAdd>
 
