@@ -45,7 +45,7 @@ export default function MyProfile () {
 
   useEffect(()=>{
     if(user.firstName !== "") return
-    const idUser = JSONUserStorage._id
+    const idUser = JSONUserStorage()._id
     getUserByID(idUser).then(user => dispatch(setUser(user)))
   }, [dispatch, user])
 

@@ -56,7 +56,7 @@ export default function FormCreateProject () {
       ? filterIDsSync(state.technologies)
       : undefined
       
-    dataProject.author = JSONUserStorage._id
+    dataProject.author = JSONUserStorage()._id
     await axios.post(SERVER_URLS.ADDPROJECT, dataProject)
   }
  
