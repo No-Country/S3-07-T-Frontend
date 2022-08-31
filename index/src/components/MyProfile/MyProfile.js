@@ -9,6 +9,7 @@ import { getListTeam } from "../../services/teamsServices"
 import { Avatar, EditAvatar, MyProfileStyled, Name, Position, SectionTags } from "./MyProfileStyles"
 import { getListTech } from "../../services/techsServices"
 import { Icon } from "@iconify/react"
+import { JSONUserStorage } from "../../services/localStorage"
 
 export const adapterToTagInSlider = (tags, type) => {
   const category = categoriesSearchsTypes[type]
@@ -44,7 +45,8 @@ export default function MyProfile () {
 
   useEffect(()=>{
     if(user.firstName !== "") return
-    getUserByID().then(user => dispatch(setUser(user)))
+    const idUser = JSONUserStorage._id
+    getUserByID(idUser).then(user => dispatch(setUser(user)))
   }, [dispatch, user])
 
   useEffect(()=>{

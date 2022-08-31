@@ -1,82 +1,24 @@
 import axios from "axios"
 import { useReducer, useState } from "react"
-import styled from "styled-components"
 import { SERVER_URLS } from "../../configs/URLS"
 import { categoriesSearchsTypes } from "../../Types/articles_type"
+import { filterIDsSync } from "../../utils/filterIDsSync"
 import { ButtonAdd, ButtonAddOrDropProject, ContainerAddOrDrop, ContainerInputAdd, TextAdd } from "../FormCreateProject/stylesFormCreateProject"
 import ModalAdd from "../ModalAdd/ModalAdd"
 import { AddedCard, ContainerAddeds } from "../ModalAdd/stylesModalAdd"
+import { ContainerInputFormCreateTeam, FormCreateTeamStyled } from "./formCreateTeamStyles"
+import { reducerCreateTeam } from "./reducerCreateTeam"
+import { typeCreateTeam } from "./typeCreateTeam"
 
 const createTeam = async (teamData) => {
   await axios.post(SERVER_URLS.ADDTEAM, teamData)
 }
 
-const ContainerInputFormCreate = styled.div`
-  display: flex;
-  gap: 10px;
-  max-width: 100%;
-  flex-wrap: wrap;
-
-  & > label {
-    font-size: 14px;
-  }
-  & > label > input {
-    width: 100px;
-    background-color: #D9D9D9;
-    border: 1px solid transparent;
-    border-radius: 2px;
-  }
-`
-
-const FormCreateTeamStyled = styled.form`
-  display: flex;
-  flex-direction: column;
-  gap: 1em;
-`
-
-const typeCreateTeam = {
-  cohortType : "",
-  cohortNumber: "",
-  group: "",
-  teamLeader: "6302f80e05c3ebcc65a24889",
-  technologies: []
-}
-
-const reducerCreateTeam = (state, action) => {
-  switch (action.type) {
-  case "cohortType":
-    return {
-      ...state,
-      cohortType: action.payload
-    }
-  case "cohortNumber":
-    return {
-      ...state,
-      cohortNumber: action.payload
-    }
-  case "group":
-    return {
-      ...state,
-      group: action.payload
-    }
-  case "teamLeader":
-    return {
-      ...state,
-      teamLeader: action.payload
-    }   
-  case "technologies":
-    return {
-      ...state,
-      technologies: action.payload
-    }
-  default:
-    return state
-  }
-}
-
 export default function FormCreateTeam () {
   const [state, dispatch] = useReducer(reducerCreateTeam, typeCreateTeam)
-  const [isOpendModalTech, setisOpendModalTech] = useState()
+  const [isOpendModalTech, setIsOpendModalTech] = useState(false)
+  const [isOpenModalDev, setIsOpenModalDev] = useState(false)
+  const [isOpenModalTl, setIsOpenModalTl] = useState(false)
 
   const handleChangeInput = (e) => {
     dispatch({type: e.target.name, payload: e.target.value})
@@ -86,25 +28,27 @@ export default function FormCreateTeam () {
     const dataTeam = {
       ...state
     }
-    dataTeam.technologies = (() => {
-      const categoriesIDs = []
-      for (let category of state.technologies){
-        categoriesIDs.push(category._id)
-      }
-      return categoriesIDs
-    })()
+    dataTeam.teamLeader = state.teamLeader.length ? state.teamLeader[0]._id : undefined
+    dataTeam.technologies = state.technologies.length ? filterIDsSync(state.technologies) : undefined
+    dataTeam.devs = state.devs.length ? filterIDsSync(state.devs) : undefined
+
     createTeam(dataTeam)    
       .then(() => alert("equipo creado"))
       .catch(error => alert("error al crear", JSON.stringify(error)) )
   }
 
-  const handleClickAddThing = (e) => {
+  const handleClickAddThing = (e, type) => {
+    const setModal = {
+      tech: () => setIsOpendModalTech(!isOpendModalTech),
+      dev: () => setIsOpenModalDev(!isOpenModalDev),
+      tl: () => setIsOpenModalTl(!isOpenModalTl)
+    }
     e.preventDefault()
-    setisOpendModalTech(!isOpendModalTech)
+    setModal[type]()
   }
   return (
     <FormCreateTeamStyled onSubmit={(e)=>e.preventDefault()}>
-      <ContainerInputFormCreate>
+      <ContainerInputFormCreateTeam>
         <label htmlFor="cohortType">Tipo: 
           <input type="text" name="cohortType" value={state.cohortType} onChange={handleChangeInput}/>
         </label>
@@ -116,7 +60,7 @@ export default function FormCreateTeam () {
         <label htmlFor="typgroupe">Grupo: 
           <input type="text" name="group" value={state.group} onChange={handleChangeInput} />
         </label>
-      </ContainerInputFormCreate>
+      </ContainerInputFormCreateTeam>
 
       <ContainerInputAdd>
         <TextAdd>Tecnologías</TextAdd>
@@ -138,8 +82,60 @@ export default function FormCreateTeam () {
         <ModalAdd
           type={categoriesSearchsTypes.technology}
           title="Tecnologias" 
-          active={[isOpendModalTech, setisOpendModalTech]}
+          active={[isOpendModalTech, setIsOpendModalTech]}
           initialAddeds={[state.technologies , (addeds)=> dispatch({type:"technologies", payload: addeds})]} 
+        />
+      </ContainerInputAdd>
+
+
+      <ContainerInputAdd>
+        <TextAdd>Desarrolladores</TextAdd>
+        <ContainerAddeds>
+          {
+            state.devs.length ?
+              state.devs.map((category, index)=>{
+                return(
+                  <AddedCard key={category._id || index}>
+                    {`${category.firstName} ${ category.lastName}`}
+                  </AddedCard>
+                ) 
+              }) 
+
+              : ""
+          }
+        </ContainerAddeds>
+        <ButtonAdd onClick={(e)=>handleClickAddThing(e, "dev")}>+</ButtonAdd>
+        <ModalAdd
+          type={categoriesSearchsTypes.profile}
+          title="Desarrolladores" 
+          active={[isOpenModalDev, setIsOpenModalDev]}
+          initialAddeds={[state.devs , (addeds)=> dispatch({type:"devs", payload: addeds})]} 
+        />
+      </ContainerInputAdd>
+
+      <ContainerInputAdd>
+        <TextAdd>Team Leader</TextAdd>
+        <ContainerAddeds>
+          {
+            state.teamLeader.length ?
+              state.teamLeader.map((category, index)=>{
+                return(
+                  <AddedCard key={category._id || index}>
+                    {`${category.firstName} ${ category.lastName}`}
+                  </AddedCard>
+                ) 
+              }) 
+
+              : ""
+          }
+        </ContainerAddeds>
+        <ButtonAdd onClick={(e)=>handleClickAddThing(e, "tl")}>+</ButtonAdd>
+        <ModalAdd
+          type={categoriesSearchsTypes.profile}
+          title="Team Leader" 
+          active={[isOpenModalTl, setIsOpenModalTl]}
+          initialAddeds={[state.teamLeader , (addeds)=> dispatch({type:"teamLeader", payload: addeds})]} 
+          limitAdd={1}
         />
       </ContainerInputAdd>
 

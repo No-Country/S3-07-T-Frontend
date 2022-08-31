@@ -40,6 +40,11 @@ export function reducerCreateProject (state, action) {
       ...state,
       categories: action.payload
     }
+  case "technologies":
+    return {
+      ...state,
+      technologies: action.payload
+    }
       
   default:
     return state
