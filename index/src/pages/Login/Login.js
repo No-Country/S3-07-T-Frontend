@@ -5,8 +5,10 @@ import LabelForm from "../../components/LabelForm/LabelForm"
 import { useReducer} from "react"
 import ActionSlider from "../../components/ActionSlider/ActionSlider"
 import { ButtonFormStyled } from "../../components/ButtonForm/ButtonForm"
-import axios from "axios"
 import "./Login.css"
+import { login } from "../../services/usersServices"
+import { saveDataLogin } from "../../services/localStorage"
+import { useNavigate } from "react-router-dom"
 
 const reducerLogin = (state, action) => {
   switch (action.type) {
@@ -31,11 +33,17 @@ export default function Login () {
     password: ""
   })
 
+  const navigate = useNavigate()
 
-  const handleOnClick = async(e) => {
-    e.preventDefault()
-    const res = await axios.post("http://localhost:3002/api/signIn", state)
-    console.log(res)
+  const clickLogin = async(e) => {
+    try {
+      e.preventDefault()
+      const res = await login(state)
+      saveDataLogin(res)
+      return navigate("/")
+    } catch (error) {
+      return alert("error")
+    }
   }
 
   return (
@@ -52,7 +60,7 @@ export default function Login () {
         </ContainInputForm>
       </FormRegister>
       <ActionSlider>
-        <ButtonFormStyled onClick={handleOnClick}>
+        <ButtonFormStyled onClick={clickLogin}>
           Iniciar Sesión
         </ButtonFormStyled>
       </ActionSlider>
