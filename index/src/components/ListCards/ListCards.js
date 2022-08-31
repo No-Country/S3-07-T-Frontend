@@ -1,5 +1,5 @@
 import { Link } from "react-router-dom"
-import styled from "styled-components"
+import styled, { keyframes } from "styled-components"
 import { parseArticle } from "../../utils/adapters"
 import Card from "../Card/Card"
 
@@ -65,22 +65,52 @@ const ListCardsStyled = styled.ul`
   margin: 0;
 `
 
-export default function ListCards ({articles = articlesMock, type = ""}) {
-
-  if(!articles.length) {
-    articles = articlesMock
+const LinkStyled = styled(Link)`
+  text-decoration: none;
+  color: rgba(0, 0, 0);
+  &:visited{
+    color: rgba(0, 0, 0);
   }
+`
+const loading = keyframes`
+  0%{
+    opacity: 0.4;
+  }
+  50% {
+    opacity: 0.5;
+  }
+  100%{
+    opacity: 0.6;
+  }
+`
 
+const MySkeleton = styled.div`
+  background-color: #D9D9D9;
+  animation: ${loading} 2s linear infinite;
+  width: 90%;
+  height: 110px;
+  margin: auto;
+  opacity: 0.6;
+`
+
+export default function ListCards ({articles = [], type = ""}) {
   return (
     <ListCardsStyled>
-      {articles.length !== 0 && articles
-        .map((article ,index) => (
-          <li key={article._id || index}>
-            <Link to={"/search/" + type + "/" + article._id}>
-              <Card article={parseArticle(article, type)}/>
-            </Link>
-          </li>
-        ))
+      {articles.length !== 0 
+        ? articles
+          .map((article) => (
+            <li key={article._id}>
+              <LinkStyled to={"/search/" + type + "/" + article._id}>
+                <Card article={parseArticle(article, type)}/>
+              </LinkStyled>
+            </li>
+          ))
+        : articlesMock
+          .map ((_, index) =>(
+            <MySkeleton key={index}>
+            </MySkeleton>
+          )
+          )
       }
     </ListCardsStyled>
   )
