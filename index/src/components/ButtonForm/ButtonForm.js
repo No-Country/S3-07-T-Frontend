@@ -1,8 +1,8 @@
 import { useContext } from "react"
 import styled from "styled-components"
 import { ContextSlider } from "../../context/contextSlider"
-import { setLoading } from "../../redux/actions"
-import { useDispatch, useSelector } from "react-redux/es/exports"
+import { useSelector } from "react-redux/es/exports"
+import { register } from "../../services/usersServices"
 
 export const ButtonFormStyled = styled.button`
   background-color: #9C7EEA;
@@ -18,7 +18,6 @@ const porcentViewSlide = 100
 
 export default function ButtonForm ({button, data = undefined}) {
   const {setMl, ml} = useContext(ContextSlider)
-  const dispatch = useDispatch()
   const loading = useSelector(state => state.loading)
 
   const nextOnClick = () => {
@@ -46,27 +45,9 @@ export default function ButtonForm ({button, data = undefined}) {
     setMl(mlContainer)
   }
 
-  const registerOnClick = () => {
-    dispatch(setLoading(true))
-    const bodyParse = JSON.stringify(data)
-    fetch("http://localhost:3002/api/signUp", {
-      headers:{
-        "Content-Type": "application/json"
-      },
-      method: "POST",
-      body: bodyParse,
-    })
-      .then(res => res.json())
-      .then( ({user}) => {
-        // eslint-disable-next-line no-unused-vars
-        const {email, token, id} = user
-        dispatch(setLoading(false))
-        
-      })
-      .catch(error => {
-        dispatch(setLoading(false))
-        console.log(error)
-      })
+  const registerOnClick = async() => {
+    const res = await register(data)
+    console.log(res)
   }
 
 

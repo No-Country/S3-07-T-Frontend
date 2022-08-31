@@ -9,7 +9,6 @@ import Slide from "../../components/Slide/Slide"
 import Slider from "../../components/Slider/Slider"
 import ProviderContextSlider from "../../context/contextSlider"
 import "./Register"
-import { useSelector } from "react-redux/es/hooks/useSelector"
 import { ContainInputForm } from "../../components/ContainInputForm/ContainInputForm"
 import { typeButtons } from "../../Types/ButtonsForm"
 
@@ -85,7 +84,6 @@ function registerReducer(state, action) {
   }
 }
 
-
 const initialRegisterData = {
   email: "",
   password: "",
@@ -98,8 +96,6 @@ const initialRegisterData = {
 
 export default function Register () {
   const [state, dispatch] = useReducer(registerReducer, initialRegisterData)
-  // eslint-disable-next-line no-unused-vars
-  const size = useSelector(state => state.rezise)
 
   const handleChangeState = (action) => {
     dispatch(action)
