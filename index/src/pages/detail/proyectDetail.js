@@ -55,7 +55,7 @@ export default function ProyectDetail(){
               position: "relative",
               left:"1%",
               width: "90%",
-              height: "50vh",
+              height: "40vh",
               objectFit: "cover",
               opacity:"0.9",
               border: "3px #000 solid",
@@ -70,6 +70,12 @@ export default function ProyectDetail(){
         <Areatxt>{proyect.description}</Areatxt>
       </Div1>
       <Div1>
+        <h3>  Grupo {proyect.team && proyect.team.group} </h3>
+        {proyect.team?console.log(proyect):console.log("no hay objeto detail") }
+        <h3>  Cohorte  {proyect.team&& proyect.team.cohortNumber} </h3>
+        <h3>  Fase <span>{proyect.team&& proyect.team.cohortType}</span> </h3>
+
+        
         {/* <MyButton onClick={handleClick} >{textBtn}</MyButton> */}
         <SectionTags>
           <span>Tecnologías</span>

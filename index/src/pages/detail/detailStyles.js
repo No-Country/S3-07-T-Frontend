@@ -21,7 +21,7 @@ font-weight: 800;
 font-size: 48px;
 line-height: 46.88px;
 text-align: left; 
-padding-left:25%;
+padding-left:15%;
 `
 export const Detalles=styled.div`
     height: 96vh;
@@ -32,8 +32,7 @@ export const Detalles=styled.div`
     `
 
 export const Div1=styled.div`
-    margin-top: 4%;
-    z-index: 2;
+    background:#f5f5f5;
     `
 export const Areatxt=styled.div`
     justify-content: center;
@@ -42,5 +41,5 @@ export const Areatxt=styled.div`
     font-size: bold;
     color: #000;
     background:#eee;
-    padding: 2% 20% 2% 25%;
+    padding: 2% 10% 2% 15%;
     `
