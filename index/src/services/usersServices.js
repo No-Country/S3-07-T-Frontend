@@ -40,8 +40,7 @@ export const editAvatar = async (id, file) => {
       },
       body: formData,
     })
-
-    console.log(resEdit)
+    
     return resEdit
   } catch (error) {
     console.log(error)
