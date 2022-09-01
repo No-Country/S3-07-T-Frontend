@@ -11,12 +11,11 @@ import { getListTech } from "../../services/techsServices"
 import { categoriesSearchsTypes } from "../../Types/articles_type"
 import { getUserByID } from "../../services/usersServices"
 import { Areatxt, Detalles, Div1, Title} from "./detailStyles"
-//import { getListTeam } from "../../services/teamsServices"
-//import CardAct from "./home/CardAct"
+import {Helmet} from "react-helmet"
 
 export default function ProyectDetail(){
-  // const [mas,setMas]=useState(false)
-  // const [textBtn, setTextBtn]=useState(">>")
+  
+
   const dispatch= useDispatch()
   const {id}= useParams()
   const proyect= useSelector(store=>store.detail)
@@ -43,6 +42,11 @@ export default function ProyectDetail(){
   }
   return( 
     <Detalles>
+      <Helmet>
+        <title>{proyect.title? proyect.title :"." } | NC community</title>
+        <meta name="description" content="Helmet application" />
+      </Helmet>
+    
       <Div1>
         <div style={{background:"#F5F5F5", whidt:"800px", marginTop:"1em"}}>
           {/* <MyButton style={{borderRadius:"50%", opacity:"0.8", marginLeft:"80%", marginBottom:"5%"}} onClick={handleClick}>X</MyButton> <br/> */}
