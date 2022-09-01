@@ -1,5 +1,6 @@
 import axios from "axios"
 import { useReducer, useState } from "react"
+import { Helmet } from "react-helmet"
 import { SERVER_URLS } from "../../configs/URLS"
 import { JSONUserStorage } from "../../services/localStorage"
 import { categoriesSearchsTypes } from "../../Types/articles_type"
@@ -62,6 +63,10 @@ export default function FormCreateProject () {
  
   return (
     <FormCreateStyled>
+      <Helmet>
+        <title> Agrega tu proyecto | NC community </title>
+        <meta name="description" content="Nc Community AGREGA TU PROYECTO" />
+      </Helmet>
       <DragAndDropStyled>
         <DragAndDropTitle>¡Arrastra tu video acá!</DragAndDropTitle>
       </DragAndDropStyled>

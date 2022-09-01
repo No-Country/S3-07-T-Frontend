@@ -1,5 +1,6 @@
 import axios from "axios"
 import { useReducer, useState } from "react"
+import { Helmet } from "react-helmet"
 import { SERVER_URLS } from "../../configs/URLS"
 import { categoriesSearchsTypes } from "../../Types/articles_type"
 import { filterIDsSync } from "../../utils/filterIDsSync"
@@ -48,6 +49,10 @@ export default function FormCreateTeam () {
   }
   return (
     <FormCreateTeamStyled onSubmit={(e)=>e.preventDefault()}>
+      <Helmet>
+        <title> Agrega tu equipo | NC community </title>
+        <meta name="description" content="Nc Community AGREGA TU PROYECTO" />
+      </Helmet>
       <ContainerInputFormCreateTeam>
         <label htmlFor="cohortType">Tipo: 
           <input type="text" name="cohortType" value={state.cohortType} onChange={handleChangeInput}/>

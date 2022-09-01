@@ -1,9 +1,14 @@
 import {Container,CardContainer,Imagen,Titulo,Texto,ListTech} from "./assets/Styles"
 import image1 from "./assets/image1.jpg"
+import { Helmet } from "react-helmet"
 
 const ProfileDetail = () => {
   return (
     <Container>
+      <Helmet>
+        <title> Perfil | NC community </title>
+        
+      </Helmet>
       <CardContainer >
 
         <Imagen>

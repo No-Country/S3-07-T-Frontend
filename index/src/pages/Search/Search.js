@@ -1,5 +1,6 @@
 import axios from "axios"
 import { useEffect, useState } from "react"
+import { Helmet } from "react-helmet"
 import { NavLink, useParams } from "react-router-dom"
 import styled from "styled-components"
 import ListCards from "../../components/ListCards/ListCards"
@@ -80,6 +81,9 @@ export default function Search () {
 
   return (
     <div style={{overflowY: "auto", height: "100%"}}>
+      <Helmet>
+        <title> Home | NC community </title>
+      </Helmet>
       <MenuSearch>
         <NavLinkStyled to='/search/projects'>
           Proyectos

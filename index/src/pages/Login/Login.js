@@ -9,6 +9,8 @@ import "./Login.css"
 import { login } from "../../services/usersServices"
 import { saveDataLogin } from "../../services/localStorage"
 import { useNavigate } from "react-router-dom"
+import { Helmet } from "react-helmet"
+
 
 const reducerLogin = (state, action) => {
   switch (action.type) {
@@ -48,6 +50,10 @@ export default function Login () {
 
   return (
     <div className="Login">
+      <Helmet>
+        <title>{"Login" } | NC community</title>
+        <meta name="description" content="Login | Nc community Iniciar sesión" />
+      </Helmet>
       <FormRegister>
         <ContainInputForm>
           <LabelForm name="email" text="correo electrónico"/>
