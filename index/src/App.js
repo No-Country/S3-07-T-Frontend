@@ -7,7 +7,6 @@ import useWindowSize from "./hooks/useWindowSize"
 import { useEffect, useRef } from "react"
 import { setNewSize } from "./redux/actions"
 import { useDispatch } from "react-redux"
-import ProyectDetail from "./pages/detail/proyectDetail"
 import Create from "./pages/Create/Create"
 import Header from "./components/Header/Header"
 import NavBarMobile from "./components/NavbarMobile/NavbarMobile"
@@ -15,6 +14,7 @@ import ProfileDetail from "./components/ProfileDetail/ProfileDetail"
 import Banner from "./components/Main/Banner"
 import MyProfile from "./components/MyProfile/MyProfile"
 import styled from "styled-components"
+import ProjectDetail from "./pages/ProjectDetail/ProjectDetail"
 
 const Main = styled.section`
 overflow-y: auto;
@@ -42,7 +42,7 @@ function App() {
           <Route path="/my-profile" element={<MyProfile/>} />
           <Route path="/create/:categoryName" element={<Create/>} />
           <Route path="/search/:articles" element={<Search />} />
-          <Route path="search/projects/:id" element={<ProyectDetail/>} />
+          <Route path="search/projects/:idProject" element={<ProjectDetail/>} />
           <Route path="search/profiles/:idProfile" element={<ProfileDetail/>} />
         </Routes>
       </Main>
