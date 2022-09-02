@@ -1,18 +1,42 @@
 @font-face {
   font-family: Roboto;
   src: 
-    url('./utils/fonts/Roboto/Roboto-Black.ttf'), 
-    url('./utils/fonts/Roboto/Roboto-BlackItalic.ttf'), 
-    url('./utils/fonts/Roboto/Roboto-Bold.ttf'), 
-    url('./utils/fonts/Roboto/Roboto-BoldItalic.ttf'), 
-    url('./utils/fonts/Roboto/Roboto-Italic.ttf'), 
-    url('./utils/fonts/Roboto/Roboto-Light.ttf'), 
-    url('./utils/fonts/Roboto/Roboto-LightItalic.ttf'), 
-    url('./utils/fonts/Roboto/Roboto-Medium.ttf'), 
-    url('./utils/fonts/Roboto/Roboto-MediumItalic.ttf'), 
-    url('./utils/fonts/Roboto/Roboto-Regular.ttf'), 
-    url('./utils/fonts/Roboto/Roboto-Thin.ttf'), 
-    url('./utils/fonts/Roboto/Roboto-ThinItalic.ttf')
+    url('./utils/fonts/Roboto/Roboto-Regular.ttf');
+  font-style: normal;
+  font-weight: 300;
+}
+
+@font-face {
+  font-family: Roboto;
+  src: 
+    url('./utils/fonts/Roboto/Roboto-Bold.ttf');
+  font-style: normal;
+  font-weight: 700;
+}
+
+@font-face {
+  font-family: Roboto;
+  src: 
+    url('./utils/fonts/Roboto/Roboto-Medium.ttf');
+  font-style: normal;
+  font-weight: 400;
+}
+
+@font-face {
+  font-family: Roboto;
+  src: 
+    url('./utils/fonts/Roboto/Roboto-Light.ttf'); 
+  font-style: normal;
+  font-weight: 100;
+}
+
+
+@font-face {
+  font-family: Roboto;
+  src: 
+    url('./utils/fonts/Roboto/Roboto-Black.ttf');
+  font-size: normal;
+  font-weight: 800; 
 }
 
 body {
@@ -32,5 +56,4 @@ code {
 *{
   box-sizing: border-box;
   font-family: 'Roboto';
-  
 }
