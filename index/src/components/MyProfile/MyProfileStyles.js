@@ -10,7 +10,36 @@ export const MyProfileStyled = styled.div`
   padding: 1em 0;
 `
 
-export const Avatar = styled.img`
+export const Avatar = (props) => {
+  return (
+    <ContainerAvatar>
+      <ImgAvatar {...props}/>
+    </ContainerAvatar>
+  )
+}
+
+export const ContainerAvatar = styled.div`
+  width: max-content;
+  height: max-content;
+  border: 1px solid transparent;
+  position: relative;
+  display: flex;
+  justify-content: center;
+  border-radius: 50%;
+  &::after{
+  position: absolute;
+  top: -3px; 
+  bottom: -3px;
+  left: -3px; 
+  right: -3px;
+  background: linear-gradient(to bottom, #9C7EEA 0%, #00C981 50%,#9C7EEA 100%);
+  content: '';
+  z-index: -1;
+  border-radius: 50%;
+  }
+`
+
+export const ImgAvatar = styled.img`
   min-height: 155px;
   min-width: 155px;
   border: 1px solid black;

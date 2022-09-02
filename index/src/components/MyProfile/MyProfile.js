@@ -19,6 +19,7 @@ export const adapterToTagInSlider = (tags, type) => {
     profile: (tag) => ({_id: tag._id , title: tag.firstName + " " + tag.lastName, image: tag.avatar}),
     technology: (tag) => ({_id: tag._id , title: tag.name, image: tag.image}),
     team: (tag) => ({_id: tag._id , title: tag.cohortType +  " " + tag.cohortNumber +  " " + "grupo " + tag.group, image: undefined}),
+    project: (tag) => ({_id: tag._id , title: tag.title, image: tag.image})
   }
 
   let tagsAdapteds = []
