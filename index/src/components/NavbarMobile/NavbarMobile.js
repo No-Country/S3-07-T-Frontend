@@ -11,7 +11,7 @@ export default function NavBarMobile() {
       <LinkStyled to="/search/projects">
         <Icon icon="akar-icons:home" color="#777777" width={"25px"} height={"25px"} />
       </LinkStyled>
-      {size[0] < 1024 && <ButtonAddStyled onClick={()=>navigate("/create")}>+</ButtonAddStyled>}
+      {size[0] < 1024 && <ButtonAddStyled onClick={()=>navigate("/create/project")}>+</ButtonAddStyled>}
       <LinkStyled to="/my-profile">
         <Icon icon="bi:person" color="#777777" width={"31px"} height={"31px"} />
       </LinkStyled>

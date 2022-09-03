@@ -1,4 +1,4 @@
-import { useReducer } from "react"
+import { useReducer, useState } from "react"
 import styled from "styled-components"
 import ActionSlider from "../../components/ActionSlider/ActionSlider"
 import ButtonForm from "../../components/ButtonForm/ButtonForm"
@@ -11,6 +11,11 @@ import ProviderContextSlider from "../../context/contextSlider"
 import "./Register"
 import { ContainInputForm } from "../../components/ContainInputForm/ContainInputForm"
 import { typeButtons } from "../../Types/ButtonsForm"
+import ModalAdviser from "../../components/ModalAdviser/ModalAdviser"
+import { useEffect } from "react"
+import { useNavigate } from "react-router-dom"
+import { login } from "../../services/usersServices"
+import { saveDataLogin } from "../../services/localStorage"
 
 const TitleFormStyles = styled.h1`
   text-transform: capitalize;
@@ -96,10 +101,31 @@ const initialRegisterData = {
 
 export default function Register () {
   const [state, dispatch] = useReducer(registerReducer, initialRegisterData)
-
+  const [openAdviser, setOpenAdviser] = useState(false)
+  const [resRegister, setResRegister] = useState(undefined)
+  const navigate = useNavigate()
   const handleChangeState = (action) => {
     dispatch(action)
   }
+
+  useEffect(() => {
+    if(resRegister){
+      setOpenAdviser(true)
+      console.log(resRegister)
+      login({email: resRegister.email, password: resRegister.password})
+        .then(res => {
+          saveDataLogin(res)
+          setTimeout(()=>{
+            setOpenAdviser(false)
+            navigate("/")
+          }, 2500)
+        })
+        .catch((error) => {
+          console.log(error)
+          alert("Ocurrio un error")
+        })
+    }
+  }, [resRegister, navigate])
 
   return (
     <section className="Register">
@@ -161,12 +187,18 @@ export default function Register () {
 
             <ActionSlider>
               <ButtonForm button={typeButtons.buttonBack}/>
-              <ButtonForm button={typeButtons.buttonRegister} data={state}/>
+              <ButtonForm button={typeButtons.buttonRegister} data={state} res={(res)=>setResRegister(res)}/>
             </ActionSlider>
           </Slide>
 
         </Slider>
       </ProviderContextSlider>
+      <ModalAdviser
+        active={openAdviser} 
+        title = "¡Registro Exitoso!"
+        subtitle= "¡Bienvenido!"
+        image={"https://images-wixmp-ed30a86b8c4ca887773594c2.wixmp.com/f/2c727e48-595d-4e29-ab6e-eaec806cc004/ddbv3yv-2fc70379-e3b9-45c5-8636-8850a99ba565.png/v1/fill/w_894,h_894,q_70,strp/pixel_art___robot_1_by_projectrobo1989_ddbv3yv-pre.jpg?token=eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJ1cm46YXBwOjdlMGQxODg5ODIyNjQzNzNhNWYwZDQxNWVhMGQyNmUwIiwiaXNzIjoidXJuOmFwcDo3ZTBkMTg4OTgyMjY0MzczYTVmMGQ0MTVlYTBkMjZlMCIsIm9iaiI6W1t7ImhlaWdodCI6Ijw9MTE4NCIsInBhdGgiOiJcL2ZcLzJjNzI3ZTQ4LTU5NWQtNGUyOS1hYjZlLWVhZWM4MDZjYzAwNFwvZGRidjN5di0yZmM3MDM3OS1lM2I5LTQ1YzUtODYzNi04ODUwYTk5YmE1NjUucG5nIiwid2lkdGgiOiI8PTExODQifV1dLCJhdWQiOlsidXJuOnNlcnZpY2U6aW1hZ2Uub3BlcmF0aW9ucyJdfQ.MqIzj3TDeyiUPQfGlUfwbBzZCprYhWmfoYHTxjkricM"}
+      />
     </section>
   )
 }  

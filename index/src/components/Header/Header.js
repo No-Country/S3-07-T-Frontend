@@ -18,7 +18,7 @@ export default function Header (){
   )
 }
 
-const LogoText = styled.h1`
+export const LogoText = styled.h1`
   font-size: 24px;
   background: linear-gradient(to bottom, #9C7EEA 0%, #00C981 50%,#9C7EEA 80%);
   -webkit-text-fill-color: transparent;

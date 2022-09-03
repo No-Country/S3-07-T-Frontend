@@ -73,9 +73,6 @@ const ProfileDetail = () => {
           }
         </SectionTagsInDetail>
 
-
-
-
       </CardContainer>
 
     </Container>
