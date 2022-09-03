@@ -1,6 +1,6 @@
 import styled from "styled-components"
 import { Link } from "react-router-dom"
-//import { images } from "../../utils/images/images"
+
 
 
 const TitleCreate = styled.h1`
@@ -17,14 +17,14 @@ const CreateStyled = styled.section`
 `
 const Container=styled.div`
 display: flex;
-flex-direction: row;
+flex-direction: ;
 justify-content: space-evenly;
 height: 80vh;
 aling-items:center;
+text-decoration:none;
 
 `
 const StyledButton=styled.button`
-    display:flex;
     background-image: url("https://www.estrategiaynegocios.net/binrepository/600x400/0c0/0d0/none/26086/VHKU/equipodetrabajo.20_EN1311300_MG219711723.jpg");
     background-size: cover;
     background-position: center;
@@ -33,6 +33,7 @@ const StyledButton=styled.button`
     text-decoration:none;
     border-radius:5px;
     border:3px #00C981 solid;
+    width: 270px;
 `
 
 export default function SelectCreate () {  
