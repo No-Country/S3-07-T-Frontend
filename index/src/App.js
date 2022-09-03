@@ -40,7 +40,6 @@ function App() {
           ? <Banner />
           : null
       }
-      
       <Main of={pathname.startsWith("/search") && pathname.length <= 16}>
         <Routes>
           <Route path="/" element={<Navigate to={"/search/projects"}/>}/>
