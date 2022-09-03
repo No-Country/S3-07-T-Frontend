@@ -11,6 +11,8 @@ const MenuSearch = styled.nav`
 color: #fff;
 display: flex;
 padding: 0;
+margin-top: 10px;
+margin-bottom: 8px;
 justify-content: center;
 align-items: center;
 display: flex;
@@ -57,8 +59,8 @@ const getListCategory = async (category, search, page) => {
   try {
     const urlOfCategory = getAll[TYPES_ARTICLES[category]]
     if (!urlOfCategory) throw new Error("No existe la url de esa categoria")
-    console.log(urlOfCategory + `?page=${page}` + `&limit=${10}` + `&${querySearch[category]}=${search}`)
-    const categoryList = await axios.get(urlOfCategory + `?page=${page}` + `&limit=${10}` + `&${querySearch[category]}=${search}`)
+    console.log(urlOfCategory + `?page=${page}` + `&limit=${50}` + `&${querySearch[category]}=${search}`)
+    const categoryList = await axios.get(urlOfCategory + `?page=${page}` + `&limit=${50}` + `&${querySearch[category]}=${search}`)
     return categoryList.data.docs
   } catch (error) {
     console.log(error)
@@ -72,7 +74,11 @@ export default function Search () {
   const [search, setSearch] = useState("")
 
   useEffect(() => {
-    getListCategory(categoryParam, search, 0).then(setAllArticles).catch(setAllArticles)
+    getListCategory(categoryParam, search, 0)
+      .then(setAllArticles)
+      .catch(setAllArticles)
+
+    return setAllArticles([])
   }, [categoryParam, search])
 
   useEffect(() => {
@@ -80,7 +86,7 @@ export default function Search () {
   }, [categoryParam])
 
   return (
-    <div style={{overflowY: "auto", height: "100%"}}>
+    <div style={{height: "100%"}}>
       <Helmet>
         <title> Home | NC community </title>
       </Helmet>
@@ -97,10 +103,6 @@ export default function Search () {
           Equipos
           <UnderLine active={categoryParam === TYPES_ARTICLES.teams}/>
         </NavLinkStyled> 
-        <NavLinkStyled to='/search/foro'>
-          Foro
-          <UnderLine active={categoryParam === TYPES_ARTICLES.foro}/>
-        </NavLinkStyled>
       </MenuSearch>
       <SearchForm changerSearch={setSearch}/>
       <ListCards articles={allArticles} type={categoryParam}/>

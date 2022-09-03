@@ -58,7 +58,9 @@ export default function FormCreateProject () {
       : undefined
       
     dataProject.author = JSONUserStorage()._id
-    await axios.post(SERVER_URLS.ADDPROJECT, dataProject)
+    axios.post(SERVER_URLS.ADDPROJECT, dataProject)
+      .then(() => alert("Proyecto creado"))
+      .catch(() => alert("Error al crear proyecto"))
   }
  
   return (

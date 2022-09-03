@@ -1,5 +1,5 @@
 import "./App.css"
-import { Routes, Route, Navigate } from "react-router-dom"
+import { Routes, Route, Navigate, useLocation } from "react-router-dom"
 import Register from "./pages/Register/Register.js"
 import Search from "./pages/Search/Search.js"
 import Login from "./pages/Login/Login.js"
@@ -17,7 +17,7 @@ import styled from "styled-components"
 import ProjectDetail from "./pages/ProjectDetail/ProjectDetail"
 
 const Main = styled.section`
-overflow-y: auto;
+overflow-y: ${(props) => props.of ? "hidden" : "auto"};
 flex-grow: 1;
 `
 
@@ -25,16 +25,23 @@ function App() {
   const size = useWindowSize() //anchura y altura de la pantalla number[]
   const dispatch = useDispatch()
   const appRef = useRef()
+  const { pathname } = useLocation()
 
   useEffect(() => {
+    console.log("pathname.startsWith('/search')", pathname.startsWith("/search"))
     dispatch(setNewSize(size)) // cada vez que cambien las dimensiones de la pantalla queremos tenerlo disponible para cualquier componente que lo necesite
   }, [dispatch, size])
 
   return (
     <div className="App" ref={appRef} style={{height: size[1], overflowY:"hidden"}}>
       <Header />
-      <Banner />
-      <Main>
+      {
+        pathname.startsWith("/search") && pathname.length <= 16 
+          ? <Banner />
+          : null
+      }
+      
+      <Main of={pathname.startsWith("/search") && pathname.length <= 16}>
         <Routes>
           <Route path="/" element={<Navigate to={"/search/projects"}/>}/>
           <Route path="/login" element={<Login />} />

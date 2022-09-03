@@ -63,6 +63,8 @@ const ListCardsStyled = styled.ul`
   gap: 6px;
   padding: 0;
   margin: 0;
+  height: 80%;
+  overflow-y: auto;
 `
 
 const LinkStyled = styled(Link)`
@@ -88,7 +90,8 @@ const MySkeleton = styled.div`
   background-color: #D9D9D9;
   animation: ${loading} 2s linear infinite;
   width: 90%;
-  height: 110px;
+  min-height: 110px;
+  max-height: 110px;
   margin: auto;
   opacity: 0.6;
 `

@@ -16,7 +16,7 @@ export const ButtonFormStyled = styled.button`
 
 const porcentViewSlide = 100
 
-export default function ButtonForm ({button, data = undefined}) {
+export default function ButtonForm ({button, data = undefined, res=undefined}) {
   const {setMl, ml} = useContext(ContextSlider)
   const loading = useSelector(state => state.loading)
 
@@ -45,9 +45,10 @@ export default function ButtonForm ({button, data = undefined}) {
     setMl(mlContainer)
   }
 
-  const registerOnClick = async() => {
-    const res = await register(data)
-    console.log(res)
+  const registerOnClick = () => {
+    register(data)
+      .then(res(data))
+      .catch((error) => console.log(error))
   }
 
 
