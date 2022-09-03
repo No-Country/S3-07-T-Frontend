@@ -1,6 +1,47 @@
+@font-face {
+  font-family: Roboto;
+  src: 
+    url('./utils/fonts/Roboto/Roboto-Regular.ttf');
+  font-style: normal;
+  font-weight: 300;
+}
+
+@font-face {
+  font-family: Roboto;
+  src: 
+    url('./utils/fonts/Roboto/Roboto-Bold.ttf');
+  font-style: normal;
+  font-weight: 700;
+}
+
+@font-face {
+  font-family: Roboto;
+  src: 
+    url('./utils/fonts/Roboto/Roboto-Medium.ttf');
+  font-style: normal;
+  font-weight: 400;
+}
+
+@font-face {
+  font-family: Roboto;
+  src: 
+    url('./utils/fonts/Roboto/Roboto-Light.ttf'); 
+  font-style: normal;
+  font-weight: 100;
+}
+
+
+@font-face {
+  font-family: Roboto;
+  src: 
+    url('./utils/fonts/Roboto/Roboto-Black.ttf');
+  font-size: normal;
+  font-weight: 800; 
+}
+
 body {
-  margin: 0;
-  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
+  margin: 0px;
+  font-family: 'Roboto', -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Oxygen',
     'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue',
     sans-serif;
   -webkit-font-smoothing: antialiased;
@@ -10,4 +51,9 @@ body {
 code {
   font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
     monospace;
+}
+
+*{
+  box-sizing: border-box;
+  font-family: 'Roboto';
 }

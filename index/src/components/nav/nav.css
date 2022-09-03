@@ -1,0 +1,23 @@
+.hidden{
+    display:none;
+    background-color: black;
+}
+.menu{
+    display:none;
+    grid-auto-columns: minmax(50px,4fr);
+}
+.navbar__link{
+  text-decoration:none;
+  color: #000;
+  
+}
+.current__link{
+  text-decoration:none;
+  background:#fff;
+  border-top-left-radius: 1em;
+  border-top-right-radius: 1em;
+  border-bottom:4px #00C981 solid;
+  margin-bottom: 0px;
+  color: #551a8b ;
+  display: block;
+}
