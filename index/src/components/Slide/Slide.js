@@ -1,23 +1,23 @@
 /* eslint-disable no-unused-vars */
-import { useLayoutEffect } from "react"
+import { useContext } from "react"
 import { useEffect, useRef, useState } from "react"
-import useSizesPaAndEl from "../../hooks/useSizesPaAndEl"
+import { ContextSlider } from "../../context/contextSlider"
 
 export default function Slide ({children}){ 
   const slideRef = useRef()
-  const [wParent] = useSizesPaAndEl(slideRef)
-  const [childrenPa, setChildrenPa] = useState(0)
+  const [parent, setParent] = useState(undefined)
   const [wSlide, setWSlide] = useState(undefined)
+  const { whSlider } = useContext(ContextSlider)
 
   useEffect(()=>{
-    if(!slideRef.current?.parentElement.children) return
-    setChildrenPa(slideRef.current.parentElement.children.length)
+    if(!slideRef.current.parentElement) return
+    setParent(slideRef.current.parentElement)
   }, [slideRef])
 
-  useLayoutEffect(()=>{
-    if(!slideRef.current.parentElement.offsetWidth) return
-    setWSlide(slideRef.current.parentElement.offsetWidth / childrenPa)
-  }, [childrenPa, slideRef, wParent])
+  useEffect(()=>{
+    if(!parent) return
+    setWSlide(whSlider / parent.children.length)
+  }, [parent, whSlider])
 
   return (
     <div className="Slide" ref={slideRef} style={{width: wSlide  + "px", height: "100%"}}>
