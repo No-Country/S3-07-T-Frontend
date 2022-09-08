@@ -15,7 +15,6 @@ import Banner from "./components/Main/Banner"
 import MyProfile from "./components/MyProfile/MyProfile"
 import styled from "styled-components"
 import ProjectDetail from "./pages/ProjectDetail/ProjectDetail"
-import SelectCreate from "./pages/Create/SelectCreate"
 
 const Main = styled.section`
 overflow-y: ${(props) => props.of ? "hidden" : "auto"};
@@ -47,7 +46,6 @@ function App() {
           <Route path="/login" element={<Login />} />
           <Route path="/register" element={<Register />} />
           <Route path="/my-profile" element={<MyProfile/>} />
-          <Route path="/create" element={<SelectCreate/>} />
           <Route path="/create/:categoryName" element={<Create/>} />
           <Route path="/search/:articles" element={<Search />} />
           <Route path="search/projects/:idProject" element={<ProjectDetail/>} />
