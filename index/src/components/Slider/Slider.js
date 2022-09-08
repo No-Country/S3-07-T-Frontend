@@ -8,7 +8,7 @@ export default function Slider ({children}) {
   const sliderRef = useRef()
   const [wParent]= useSizesPaAndEl(sliderRef)
   const [widtSlider, setWidthSlider] = useState(undefined)
-  const { ml } = useContext(ContextSlider)
+  const { ml, setWhSlider } = useContext(ContextSlider)
 
   useEffect(() => {
     if(!sliderRef.current?.children.length) return
@@ -18,6 +18,7 @@ export default function Slider ({children}) {
   useLayoutEffect(() => {
     if(!sliderRef.current?.children.length) return
     setWidthSlider(wParent * 3)
+    setWhSlider(wParent * 3)
   }, [wParent, sliderRef])
   
   return (
